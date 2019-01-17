@@ -42,6 +42,7 @@ opts_chunk$set(echo=FALSE,
                message=FALSE,
                warning=FALSE)
 opts_knit$set(width=75)
+library(tidyverse)
 ```
 
 # Ejercicio 1 (40%)
@@ -49,7 +50,15 @@ opts_knit$set(width=75)
 > El conjunto de datos bikes2016.csv contiene información sobre el número de personas que circulan en bicicleta por cada uno de los distritos de la ciudad de Montreal a lo largo del año 2016 http://donnees.ville.montreal.qc.ca/dataset/velos-comptage. En este conjunto de datos, las filas representan los dias del año y las columnas cada uno de los distritos. La columna 2 contiene un timestamp que vamos a ignorar. Sobre este conjunto de datos:
 
 
-## (5 puntos) Leer el fichero bikes2016.csv como un dataframe.
+## (5 puntos) Leer el fichero bikes2016.csv como un dataframe
+
+
+
+```{r pregunta_1, echo=FALSE}
+
+```
+
+
 
 ## (5 puntos) Eliminar la columna **Timestamp** del dataframe.
 
