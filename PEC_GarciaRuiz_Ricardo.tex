@@ -1,0 +1,338 @@
+\documentclass[]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+\hypersetup{unicode=true,
+            pdftitle={PEC\_Analisis Datos R},
+            pdfauthor={Ricardo Garcia Ruiz},
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{5}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+%%% Use protect on footnotes to avoid problems with footnotes in titles
+\let\rmarkdownfootnote\footnote%
+\def\footnote{\protect\rmarkdownfootnote}
+
+%%% Change title format to be more compact
+\usepackage{titling}
+
+% Create subtitle command for use in maketitle
+\newcommand{\subtitle}[1]{
+  \posttitle{
+    \begin{center}\large#1\end{center}
+    }
+}
+
+\setlength{\droptitle}{-2em}
+
+  \title{PEC\_Analisis Datos R}
+    \pretitle{\vspace{\droptitle}\centering\huge}
+  \posttitle{\par}
+    \author{Ricardo Garcia Ruiz}
+    \preauthor{\centering\large\emph}
+  \postauthor{\par}
+      \predate{\centering\large\emph}
+  \postdate{\par}
+    \date{17 de enero, 2019}
+
+
+\begin{document}
+\maketitle
+
+{
+\setcounter{tocdepth}{4}
+\tableofcontents
+}
+\section{Ejercicio 1 (40\%)}\label{ejercicio-1-40}
+
+\begin{quote}
+El conjunto de datos bikes2016.csv contiene información sobre el número
+de personas que circulan en bicicleta por cada uno de los distritos de
+la ciudad de Montreal a lo largo del año 2016
+\url{http://donnees.ville.montreal.qc.ca/dataset/velos-comptage}. En
+este conjunto de datos, las filas representan los dias del año y las
+columnas cada uno de los distritos. La columna 2 contiene un timestamp
+que vamos a ignorar. Sobre este conjunto de datos:
+\end{quote}
+
+\subsection{(5 puntos) Leer el fichero bikes2016.csv como un
+dataframe.}\label{puntos-leer-el-fichero-bikes2016.csv-como-un-dataframe.}
+
+\subsection{\texorpdfstring{(5 puntos) Eliminar la columna
+\textbf{Timestamp} del
+dataframe.}{(5 puntos) Eliminar la columna Timestamp del dataframe.}}\label{puntos-eliminar-la-columna-timestamp-del-dataframe.}
+
+\subsection{(10 puntos) Calcular el porcentaje de missing values en cada
+una de las
+columnas.}\label{puntos-calcular-el-porcentaje-de-missing-values-en-cada-una-de-las-columnas.}
+
+\subsection{(10 puntos) Identificar cuales son las variables que están
+contenidas en el data.frame. A continuación, transformar ese data.frame
+para que cada columna represente cada una de las variables. Usar los
+nombres Date, District y
+N.}\label{puntos-identificar-cuales-son-las-variables-que-estan-contenidas-en-el-data.frame.-a-continuacion-transformar-ese-data.frame-para-que-cada-columna-represente-cada-una-de-las-variables.-usar-los-nombres-date-district-y-n.}
+
+\subsection{(10 puntos) Calcular el total de personas que pasa por cada
+uno de los distritos a lo largo de todo el
+año.}\label{puntos-calcular-el-total-de-personas-que-pasa-por-cada-uno-de-los-distritos-a-lo-largo-de-todo-el-ano.}
+
+\subsection{\texorpdfstring{(10 puntos) Completar los missing values del
+atributo N con la media del resto de datos de esa variable pero agrupado
+de acuerdo a la variable
+\textbf{District}.}{(10 puntos) Completar los missing values del atributo N con la media del resto de datos de esa variable pero agrupado de acuerdo a la variable District.}}\label{puntos-completar-los-missing-values-del-atributo-n-con-la-media-del-resto-de-datos-de-esa-variable-pero-agrupado-de-acuerdo-a-la-variable-district.}
+
+\subsection{\texorpdfstring{(10 puntos) Crear tres nuevas variables en
+el data.frame \textbf{(Day, Month, Year )} que contengan la información
+del día, mes y año
+respectivamente.}{(10 puntos) Crear tres nuevas variables en el data.frame (Day, Month, Year ) que contengan la información del día, mes y año respectivamente.}}\label{puntos-crear-tres-nuevas-variables-en-el-data.frame-day-month-year-que-contengan-la-informacion-del-dia-mes-y-ano-respectivamente.}
+
+\subsection{(20 puntos) Realizar un gráfico de barras del número de
+ciclistas para cada día de la semana en cada uno de los seis districtos
+con más ciclistas (usando
+facetas)}\label{puntos-realizar-un-grafico-de-barras-del-numero-de-ciclistas-para-cada-dia-de-la-semana-en-cada-uno-de-los-seis-districtos-con-mas-ciclistas-usando-facetas}
+
+\subsection{\texorpdfstring{(20 puntos) Realizar un único gráfico con la
+evolución diaria del número de ciclistas en el mes de Enero para los
+districtos \textbf{Berry1}, \textbf{University}, \textbf{Boyer} y
+\textbf{ParcB}.}{(20 puntos) Realizar un único gráfico con la evolución diaria del número de ciclistas en el mes de Enero para los districtos Berry1, University, Boyer y ParcB.}}\label{puntos-realizar-un-unico-grafico-con-la-evolucion-diaria-del-numero-de-ciclistas-en-el-mes-de-enero-para-los-districtos-berry1-university-boyer-y-parcb.}
+
+\section{Ejercicio 2 (60\%)}\label{ejercicio-2-60}
+
+\begin{quote}
+El conjunto de datos titanic.csv contiene información sobre los
+pasajeros del barco. Este conjunto de datos se ha utilizado para tratar
+de predecir la supervivencia de un pasajero en base a otra serie de
+variables como edad, sexo, o la clase del billete. Ver por ejemplo:
+\url{https://www.kaggle.com/c/titanic}. Cada una de las variables del
+fichero contiene la siguiente información:
+\end{quote}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{survival:} Supervivencia (0 = No; 1 = Yes)
+\item
+  \textbf{pclass:} Clase de pasajero (1, 2, 3)
+\item
+  \textbf{name:} Nombre
+\item
+  \textbf{sex:} Sexo
+\item
+  \textbf{age:} Edad
+\item
+  \textbf{sibsp:} Número de hermanos/esposos/as a bordo.
+\item
+  \textbf{parch:} Número de padres/hijos a bordo
+\item
+  \textbf{ticket:} Número de ticket
+\item
+  \textbf{fare:} Coste del billete
+\item
+  \textbf{cabin:} Cabina
+\item
+  \textbf{embarked:} Puerto de embarque
+\end{itemize}
+
+Con el fichero de datos anterior:
+
+\subsection{\texorpdfstring{(4 puntos) Leer el fichero
+\textbf{titanic.csv} como un
+dataframe.}{(4 puntos) Leer el fichero titanic.csv como un dataframe.}}\label{puntos-leer-el-fichero-titanic.csv-como-un-dataframe.}
+
+\subsection{(2 puntos) Calcular el porcentaje de pasajeros que
+sobrevivió.}\label{puntos-calcular-el-porcentaje-de-pasajeros-que-sobrevivio.}
+
+\subsection{(4 puntos) Calcular el porcentaje de missing values en cada
+uno de los
+atributos.}\label{puntos-calcular-el-porcentaje-de-missing-values-en-cada-uno-de-los-atributos.}
+
+\subsection{\texorpdfstring{(2 puntos) Eliminar la variable
+\textbf{Cabin} del
+dataframe.}{(2 puntos) Eliminar la variable Cabin del dataframe.}}\label{puntos-eliminar-la-variable-cabin-del-dataframe.}
+
+\subsection{\texorpdfstring{(8 puntos) Crear una nueva variable
+\textbf{Title} a partir de \textbf{Name} con los valores \textbf{Master}
+(hombre soltero), \textbf{Miss} (mujer soltera), \textbf{Mr.} (hombre
+casado), \textbf{Mrs.} (mujer casada) y Otro a partir de la variable
+\textbf{nombre}. Es importante tener en cuenta que el título
+\textbf{Miss} está en ocasiones codificado con su abreviatura en frances
+\textbf{Mlle} (mademoiselle) y lo mismo ocurre con \textbf{Mrs.}, que en
+ocasiones aparece como \textbf{Ms.} ó \textbf{Mme}
+(madame).}{(8 puntos) Crear una nueva variable Title a partir de Name con los valores Master (hombre soltero), Miss (mujer soltera), Mr. (hombre casado), Mrs. (mujer casada) y Otro a partir de la variable nombre. Es importante tener en cuenta que el título Miss está en ocasiones codificado con su abreviatura en frances Mlle (mademoiselle) y lo mismo ocurre con Mrs., que en ocasiones aparece como Ms. ó Mme (madame).}}\label{puntos-crear-una-nueva-variable-title-a-partir-de-name-con-los-valores-master-hombre-soltero-miss-mujer-soltera-mr.-hombre-casado-mrs.-mujer-casada-y-otro-a-partir-de-la-variable-nombre.-es-importante-tener-en-cuenta-que-el-titulo-miss-esta-en-ocasiones-codificado-con-su-abreviatura-en-frances-mlle-mademoiselle-y-lo-mismo-ocurre-con-mrs.-que-en-ocasiones-aparece-como-ms.-o-mme-madame.}
+
+\subsection{\texorpdfstring{(4 puntos) Explorar la relación entre las
+variables \textbf{Age} y la nueva variable \textbf{Title} mediante un
+boxplot para cada uno de los valores de la misma. ¿Tienen alguna
+relación?.}{(4 puntos) Explorar la relación entre las variables Age y la nueva variable Title mediante un boxplot para cada uno de los valores de la misma. ¿Tienen alguna relación?.}}\label{puntos-explorar-la-relacion-entre-las-variables-age-y-la-nueva-variable-title-mediante-un-boxplot-para-cada-uno-de-los-valores-de-la-misma.-tienen-alguna-relacion.}
+
+\subsection{\texorpdfstring{(4 puntos) Explorar la relación entre
+\textbf{Age}, \textbf{Pclass} y \textbf{Title} en varios gráficos de
+dispersión con colores, donde el color representa la supervivencia
+(Pista: usar
+facetas).}{(4 puntos) Explorar la relación entre Age, Pclass y Title en varios gráficos de dispersión con colores, donde el color representa la supervivencia (Pista: usar facetas).}}\label{puntos-explorar-la-relacion-entre-age-pclass-y-title-en-varios-graficos-de-dispersion-con-colores-donde-el-color-representa-la-supervivencia-pista-usar-facetas.}
+
+\subsection{\texorpdfstring{(8 puntos) Completar los missing values del
+atributo \textbf{Age} con la mediana del resto de datos de esa variable
+pero agrupado de acuerdo a las variables \textbf{Pclass} y
+\textbf{Title}.}{(8 puntos) Completar los missing values del atributo Age con la mediana del resto de datos de esa variable pero agrupado de acuerdo a las variables Pclass y Title.}}\label{puntos-completar-los-missing-values-del-atributo-age-con-la-mediana-del-resto-de-datos-de-esa-variable-pero-agrupado-de-acuerdo-a-las-variables-pclass-y-title.}
+
+\subsection{(2 puntos) Después de realizar las operaciones anteriores,
+eliminar ahora cualquier fila que tenga al menos un
+NA.}\label{puntos-despues-de-realizar-las-operaciones-anteriores-eliminar-ahora-cualquier-fila-que-tenga-al-menos-un-na.}
+
+\subsection{(2 puntos) Calcular la probabilidad de supervivencia en base
+al género (Sex). ¿Qué conclusión(es) obtienes del
+resultado?}\label{puntos-calcular-la-probabilidad-de-supervivencia-en-base-al-genero-sex.-que-conclusiones-obtienes-del-resultado}
+
+\subsection{\texorpdfstring{(2 puntos) Calcular la probabilidad de
+supervivencia en base a la edad (\textbf{Age}). ¿Te parecen fácilmente
+interpretables estos
+resultados?}{(2 puntos) Calcular la probabilidad de supervivencia en base a la edad (Age). ¿Te parecen fácilmente interpretables estos resultados?}}\label{puntos-calcular-la-probabilidad-de-supervivencia-en-base-a-la-edad-age.-te-parecen-facilmente-interpretables-estos-resultados}
+
+\subsection{\texorpdfstring{(4 puntos) Crea una nueva variable
+\textbf{Decade} en el dataframe que contenga la década de la edad de los
+pasajeros y repite el análisis del apartado anterior sobre esta nueva
+variable. ¿Qué conclusión(es) obtienes del resultado? Pista: función
+cut.}{(4 puntos) Crea una nueva variable Decade en el dataframe que contenga la década de la edad de los pasajeros y repite el análisis del apartado anterior sobre esta nueva variable. ¿Qué conclusión(es) obtienes del resultado? Pista: función cut.}}\label{puntos-crea-una-nueva-variable-decade-en-el-dataframe-que-contenga-la-decada-de-la-edad-de-los-pasajeros-y-repite-el-analisis-del-apartado-anterior-sobre-esta-nueva-variable.-que-conclusiones-obtienes-del-resultado-pista-funcion-cut.}
+
+\subsection{\texorpdfstring{(4 puntos) Convertir la variable
+\textbf{Survived} a un factor con los niveles Yes si ha sobrevivido y No
+en caso
+contrario.}{(4 puntos) Convertir la variable Survived a un factor con los niveles Yes si ha sobrevivido y No en caso contrario.}}\label{puntos-convertir-la-variable-survived-a-un-factor-con-los-niveles-yes-si-ha-sobrevivido-y-no-en-caso-contrario.}
+
+\subsection{\texorpdfstring{(4 puntos) Ver la relación entre la
+supervivencia y la nueva variable Title con un gráfico de barras. En el
+caso del valor \textbf{Otros} de la variable \textbf{Title}, ¿nos
+proporciona este alguna información sobre la supervivencia?. ¿A qué se
+debe?}{(4 puntos) Ver la relación entre la supervivencia y la nueva variable Title con un gráfico de barras. En el caso del valor Otros de la variable Title, ¿nos proporciona este alguna información sobre la supervivencia?. ¿A qué se debe?}}\label{puntos-ver-la-relacion-entre-la-supervivencia-y-la-nueva-variable-title-con-un-grafico-de-barras.-en-el-caso-del-valor-otros-de-la-variable-title-nos-proporciona-este-alguna-informacion-sobre-la-supervivencia.-a-que-se-debe}
+
+\subsection{(4 puntos) Crea dos nuevas variables en el dataframe con la
+siguiente
+información:}\label{puntos-crea-dos-nuevas-variables-en-el-dataframe-con-la-siguiente-informacion}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Familysize:} número total de parientes incluyendo al propio
+  pasajero.
+\item
+  \textbf{Sigleton:} valor lógico indicando con valor TRUE si el
+  pasajero viaja solo y FALSE en caso contrario.
+\end{itemize}
+
+\subsection{\texorpdfstring{(4 puntos) Realizar un gráfico de puntos de
+la variable \textbf{Age} sobre \textbf{Fare}, coloreado por los valores
+de la variable
+\textbf{Survived}.}{(4 puntos) Realizar un gráfico de puntos de la variable Age sobre Fare, coloreado por los valores de la variable Survived.}}\label{puntos-realizar-un-grafico-de-puntos-de-la-variable-age-sobre-fare-coloreado-por-los-valores-de-la-variable-survived.}
+
+\subsection{(2 puntos) Realizar un histograma para ver la distribución
+de las
+edades.}\label{puntos-realizar-un-histograma-para-ver-la-distribucion-de-las-edades.}
+
+\subsection{\texorpdfstring{(4 puntos) Representar en un gráfico de
+barras el número de pasajeros que han sobrevivido para cada uno de los
+valores de las variables \textbf{Sex} y
+\textbf{Pclass}.}{(4 puntos) Representar en un gráfico de barras el número de pasajeros que han sobrevivido para cada uno de los valores de las variables Sex y Pclass.}}\label{puntos-representar-en-un-grafico-de-barras-el-numero-de-pasajeros-que-han-sobrevivido-para-cada-uno-de-los-valores-de-las-variables-sex-y-pclass.}
+
+\subsection{(4 puntos) Cuenta el número de pasajeros por tamaño de
+familia y clase. Por ejemplo, cuántos pasajeros de primera clase
+pertenecen a una familia de tamaño 4. El resultado debe ser un dataframe
+con la información para todas las posibles combinaciones de clase del
+billete y tamaño de
+familia.}\label{puntos-cuenta-el-numero-de-pasajeros-por-tamano-de-familia-y-clase.-por-ejemplo-cuantos-pasajeros-de-primera-clase-pertenecen-a-una-familia-de-tamano-4.-el-resultado-debe-ser-un-dataframe-con-la-informacion-para-todas-las-posibles-combinaciones-de-clase-del-billete-y-tamano-de-familia.}
+
+\subsection{\texorpdfstring{(4 puntos) Representar, en un mismo gráfico,
+dos histogramas de la variable \textbf{Age}, uno para los pasajeros con
+sexo masculino y otro para los pasajeros con sexo femenino. En caso de
+que se solapen los histogramas, usar colores con
+transparencias.}{(4 puntos) Representar, en un mismo gráfico, dos histogramas de la variable Age, uno para los pasajeros con sexo masculino y otro para los pasajeros con sexo femenino. En caso de que se solapen los histogramas, usar colores con transparencias.}}\label{puntos-representar-en-un-mismo-grafico-dos-histogramas-de-la-variable-age-uno-para-los-pasajeros-con-sexo-masculino-y-otro-para-los-pasajeros-con-sexo-femenino.-en-caso-de-que-se-solapen-los-histogramas-usar-colores-con-transparencias.}
+
+\subsection{\texorpdfstring{(4 puntos) Leer el fichero
+\textbf{titanic2.csv}, que contiene información adicional sobre los
+pasajeros del
+barco:}{(4 puntos) Leer el fichero titanic2.csv, que contiene información adicional sobre los pasajeros del barco:}}\label{puntos-leer-el-fichero-titanic2.csv-que-contiene-informacion-adicional-sobre-los-pasajeros-del-barco}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{boat:} identificador del bote salvavidas
+\item
+  \textbf{body:} identificador del cuerpo
+\item
+  \textbf{home.dest:} Origen/destino
+\end{itemize}
+
+\subsection{(4 puntos) Para unificar estos dos dataframes, parecería
+buena opción utilizar la variable name como clave. Determina si esta
+variable es única por pasajero, mostrando el número de nombres
+diferentes repetidos. En caso de existir varios pasajeros con el mismo
+nombre, listar aquellas filas del dataframe inicial en las que el nombre
+del pasajero esté
+repetido}\label{puntos-para-unificar-estos-dos-dataframes-pareceria-buena-opcion-utilizar-la-variable-name-como-clave.-determina-si-esta-variable-es-unica-por-pasajero-mostrando-el-numero-de-nombres-diferentes-repetidos.-en-caso-de-existir-varios-pasajeros-con-el-mismo-nombre-listar-aquellas-filas-del-dataframe-inicial-en-las-que-el-nombre-del-pasajero-este-repetido}
+
+\subsection{(6 puntos) Combina ambos dataframes utilizando la
+combinación del nombre y el número de billete, manteniendo las mismas
+filas que el dataframe
+original.}\label{puntos-combina-ambos-dataframes-utilizando-la-combinacion-del-nombre-y-el-numero-de-billete-manteniendo-las-mismas-filas-que-el-dataframe-original.}
+
+\subsection{(4 puntos) ¿Qué porcentaje de los pasajeros que sobrevivió
+tiene asociado un identificador del bote
+salvavidas?}\label{puntos-que-porcentaje-de-los-pasajeros-que-sobrevivio-tiene-asociado-un-identificador-del-bote-salvavidas}
+
+\subsection{(6 puntos) Separar el conjunto anterior de datos en dos
+subconjuntos disjuntos de forma aleatoria, el primero conteniendo un
+70\% de los datos y el segundo un 30\%. Los resultados tienen que estar
+contenidos en dos
+dataframes}\label{puntos-separar-el-conjunto-anterior-de-datos-en-dos-subconjuntos-disjuntos-de-forma-aleatoria-el-primero-conteniendo-un-70-de-los-datos-y-el-segundo-un-30.-los-resultados-tienen-que-estar-contenidos-en-dos-dataframes}
+
+
+\end{document}
