@@ -28,7 +28,7 @@ output:
 ---
 
 
-```{r knitr_init, echo=FALSE, cache=FALSE}
+```{r knitr_init, echo=FALSE, cache=FALSE, warning=FALSE, include=FALSE}
 library(knitr)
 library(rmdformats)
 
@@ -55,7 +55,7 @@ library(tidyverse)
 
 
 ```{r pregunta_1, echo=FALSE}
-
+read_csv("bikes2016.csv")
 ```
 
 

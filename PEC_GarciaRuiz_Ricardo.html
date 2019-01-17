@@ -176,7 +176,7 @@ $(document).ready(function () {
 <div id="TOC">
 <ul>
 <li><a href="#ejercicio-1-40"><span class="toc-section-number">1</span> Ejercicio 1 (40%)</a><ul>
-<li><a href="#puntos-leer-el-fichero-bikes2016.csv-como-un-dataframe."><span class="toc-section-number">1.1</span> (5 puntos) Leer el fichero bikes2016.csv como un dataframe.</a></li>
+<li><a href="#puntos-leer-el-fichero-bikes2016.csv-como-un-dataframe"><span class="toc-section-number">1.1</span> (5 puntos) Leer el fichero bikes2016.csv como un dataframe</a></li>
 <li><a href="#puntos-eliminar-la-columna-timestamp-del-dataframe."><span class="toc-section-number">1.2</span> (5 puntos) Eliminar la columna <strong>Timestamp</strong> del dataframe.</a></li>
 <li><a href="#puntos-calcular-el-porcentaje-de-missing-values-en-cada-una-de-las-columnas."><span class="toc-section-number">1.3</span> (10 puntos) Calcular el porcentaje de missing values en cada una de las columnas.</a></li>
 <li><a href="#puntos-identificar-cuales-son-las-variables-que-estan-contenidas-en-el-data.frame.-a-continuacion-transformar-ese-data.frame-para-que-cada-columna-represente-cada-una-de-las-variables.-usar-los-nombres-date-district-y-n."><span class="toc-section-number">1.4</span> (10 puntos) Identificar cuales son las variables que están contenidas en el data.frame. A continuación, transformar ese data.frame para que cada columna represente cada una de las variables. Usar los nombres Date, District y N.</a></li>
@@ -221,8 +221,27 @@ $(document).ready(function () {
 <blockquote>
 <p>El conjunto de datos bikes2016.csv contiene información sobre el número de personas que circulan en bicicleta por cada uno de los distritos de la ciudad de Montreal a lo largo del año 2016 <a href="http://donnees.ville.montreal.qc.ca/dataset/velos-comptage" class="uri">http://donnees.ville.montreal.qc.ca/dataset/velos-comptage</a>. En este conjunto de datos, las filas representan los dias del año y las columnas cada uno de los distritos. La columna 2 contiene un timestamp que vamos a ignorar. Sobre este conjunto de datos:</p>
 </blockquote>
-<div id="puntos-leer-el-fichero-bikes2016.csv-como-un-dataframe." class="section level2">
-<h2><span class="header-section-number">1.1</span> (5 puntos) Leer el fichero bikes2016.csv como un dataframe.</h2>
+<div id="puntos-leer-el-fichero-bikes2016.csv-como-un-dataframe" class="section level2">
+<h2><span class="header-section-number">1.1</span> (5 puntos) Leer el fichero bikes2016.csv como un dataframe</h2>
+<pre><code># A tibble: 366 x 20
+   Date  Timestamp Berri1 Boyer Brébeuf `CSC (Côte Sain~ Maisonneuve_2
+   &lt;chr&gt; &lt;time&gt;     &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;            &lt;dbl&gt;         &lt;dbl&gt;
+ 1 01/0~ 00'00&quot;        32     0      27                0            51
+ 2 02/0~ 00'00&quot;        68     0       6                0            93
+ 3 03/0~ 00'00&quot;        78     3       4                0           118
+ 4 04/0~ 00'00&quot;       118     6      60                2           165
+ 5 05/0~ 00'00&quot;       183     2      25                2           239
+ 6 06/0~ 00'00&quot;       305     3      14               45           378
+ 7 07/0~ 00'00&quot;       425     0      10               70           486
+ 8 08/0~ 00'00&quot;       393     1      14               77           439
+ 9 09/0~ 00'00&quot;       139     7       4               34           197
+10 10/0~ 00'00&quot;       136    30      11               59           151
+# ... with 356 more rows, and 13 more variables: Maisonneuve_3 &lt;dbl&gt;,
+#   `Notre-Dame` &lt;dbl&gt;, Parc &lt;dbl&gt;, PierDup &lt;dbl&gt;,
+#   Pont_Jacques_Cartier &lt;dbl&gt;, `Rachel / Hôtel de Ville` &lt;dbl&gt;, `Rachel /
+#   Papineau` &lt;dbl&gt;, `René-Lévesque` &lt;dbl&gt;, `Saint-Antoine` &lt;dbl&gt;,
+#   `Saint-Urbain` &lt;dbl&gt;, Totem_Laurier &lt;dbl&gt;, University &lt;dbl&gt;,
+#   Viger &lt;dbl&gt;</code></pre>
 </div>
 <div id="puntos-eliminar-la-columna-timestamp-del-dataframe." class="section level2">
 <h2><span class="header-section-number">1.2</span> (5 puntos) Eliminar la columna <strong>Timestamp</strong> del dataframe.</h2>
