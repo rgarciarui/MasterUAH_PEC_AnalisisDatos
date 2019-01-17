@@ -3,28 +3,31 @@ title: "PEC_Analisis Datos R"
 author: "Ricardo Garcia Ruiz"
 date: '`r format(Sys.Date(),"%e de %B, %Y")`'
 output:
-  html_document:
-    toc: TRUE
-    theme: lumen
-    highlight: tango
-    number_sections: true
-    toc_depth: 4
-  word_document:
-    toc: TRUE
-    highlight: default
-    toc_depth: 4
-  pdf_document:
-    toc: TRUE
-    highlight: default
-    number_sections: true
-    toc_depth: 4
+  rmdformats::readthedown:
+    highlight: kate
+    use_bookdown: TRUE
+    self_contained: true
+    thumbnails: true
+    lightbox: true
+    gallery: false
+
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-options(OutDec=",")
-require(ggplot2)
-require(gridExtra)
+
+```{r knitr_init, echo=FALSE, cache=FALSE}
+library(knitr)
+library(rmdformats)
+
+## Global options
+options(max.print="75")
+opts_chunk$set(echo=FALSE,
+	             cache=TRUE,
+               prompt=FALSE,
+               tidy=TRUE,
+               comment=NA,
+               message=FALSE,
+               warning=FALSE)
+opts_knit$set(width=75)
 ```
 
 # Ejercicio 1 (40%)
