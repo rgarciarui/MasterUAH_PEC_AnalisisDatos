@@ -55,7 +55,7 @@ library(tidyverse)
 
 
 ```{r pregunta_1, echo=FALSE}
-read_csv("bikes2016.csv")
+bikes = read_csv("bikes2016.csv")
 ```
 
 
