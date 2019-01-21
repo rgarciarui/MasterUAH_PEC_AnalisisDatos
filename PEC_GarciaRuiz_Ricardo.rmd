@@ -3,13 +3,12 @@ title: "PEC_Analisis Datos R"
 author: "Ricardo Garcia Ruiz"
 date: '`r format(Sys.Date(),"%e de %B, %Y")`'
 output:
-  rmdformats::readthedown:
-    highlight: kate
-    use_bookdown: TRUE
-    self_contained: true
-    thumbnails: true
-    lightbox: true
-    gallery: false
+  html_document:
+    toc: TRUE
+    theme: lumen
+    highlight: tango
+    number_sections: true
+    toc_depth: 4
   word_document:
     toc: TRUE
     highlight: default
@@ -19,12 +18,13 @@ output:
     highlight: default
     number_sections: true
     toc_depth: 4
-  html_document:
-    toc: TRUE
-    theme: lumen
-    highlight: tango
-    number_sections: true
-    toc_depth: 4
+  rmdformats::readthedown:
+    highlight: kate
+    use_bookdown: TRUE
+    self_contained: true
+    thumbnails: true
+    lightbox: true
+    gallery: false
 ---
 
 
@@ -54,23 +54,61 @@ library("kableExtra")
 
 ## (5 puntos) Leer el fichero bikes2016.csv como un dataframe
 
-Cargamos el conjunto de datos desde el fichero 'bikes2016.csv' y lo mostramos 
+Cargamos el conjunto de datos desde el fichero 'bikes2016.csv' y lo mostramos: 
 
-```{r pregunta_1, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
-bikes = read_csv("bikes2016.csv")
+```{r pregunta_1, echo=FALSE}
+bikes <- read_csv("bikes2016.csv")
 
-kable(cbind(bikes, bikes), caption = "Datos bikes.csv") %>%
+str(bikes)
+
+```
+
+y podemos ver la estructura de datos que tiene nuestro dataframe cuando se carga mediante y tibble de tydiverse.
+
+Los datos se pueden verificar en la siguiente tabla:
+
+```{r pregunta_1.1, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
+kable(cbind(bikes, bikes), caption = "Datos bikes2016.csv") %>%
   kable_styling() %>%
   scroll_box(width = "100%", height = "200px")
 ```
 
 
-
 ## (5 puntos) Eliminar la columna **Timestamp** del dataframe.
+
+La variables 'timestamp' se encuentra localizada en la segunda columna por lo que lo más sencillo es eliminar esa columna del conjunto de datos.
+
+```{r pregunta_2, echo=FALSE}
+bikes <- dplyr::select(bikes, -Timestamp)
+
+str(bikes)
+
+```
+
 
 ## (10 puntos) Calcular el porcentaje de missing values en cada una de las columnas.
 
+Esta accion se puede abordar de diferente maneras, incluyendo el uso de la librería **dplyr**. Por ejemplo con '**bikes %>% map(~ mean(is.na(.)))**'. No obsante, vamos a usar una variante que nos permite su representación en forma de tabla:
+
+
+```{r pregunta_3, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
+bikes %>% 
+  summarise_all(funs(100*mean(is.na(.)))) %>% kable() %>%
+  kable_styling() %>%
+  scroll_box(width = "100%", height = "200px")
+```
+
+
 ## (10 puntos) Identificar cuales son las variables que están contenidas en el data.frame. A continuación, transformar ese data.frame para que cada columna represente cada una de las variables. Usar los nombres Date, District y N.
+
+
+
+```{r pregunta_4, echo=FALSE}
+str(bikes)
+
+```
+
+
 
 ## (10 puntos) Calcular el total de personas que pasa por cada uno de los distritos a lo largo de todo el año.
 
