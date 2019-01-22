@@ -40,5 +40,14 @@ filtro1 <- bikes %>%
 
 bikes %>%
   semi_join(filtro1, by = c("District")) %>%
-  arrange(District)
+  arrange(District) %>%
+  ggplot(aes(x = Day, y = N)) +
+  geom_point() + geom_smooth() + coord_flip() +
+  facet_wrap(District~.)
 
+bikes %>%
+  semi_join(filtro1, by = c("District")) %>%
+  arrange(District) %>%
+  ggplot(aes(x = Day, y = N)) +
+  geom_point() + geom_smooth() + 
+  facet_grid(District~.)

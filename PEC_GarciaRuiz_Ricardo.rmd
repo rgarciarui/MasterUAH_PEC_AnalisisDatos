@@ -211,6 +211,25 @@ bikes %>%
 
 ```
 
+Y en este punto procedemos a la visualización de los datos:
+
+```{r pregunta_8.4, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
+bikes %>%
+  semi_join(filtro1, by = c("District")) %>%
+  arrange(District) %>%
+  ggplot(aes(x = Day, y = N)) +
+  geom_point() + geom_smooth() + 
+  facet_grid(District~.)
+
+bikes %>%
+  semi_join(filtro1, by = c("District")) %>%
+  arrange(District) %>%
+  ggplot(aes(x = Day, y = N)) +
+  geom_point() + geom_smooth() + coord_flip() +
+  facet_wrap(District~.)
+```
+
+
 
 ## (20 puntos) Realizar un único gráfico con la evolución diaria del número de ciclistas en el mes de Enero para los districtos **Berry1**, **University**, **Boyer** y **ParcB**.
 
