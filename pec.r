@@ -19,3 +19,18 @@ bikes <- bikes %>%
 b %>% 
   group_by(District) %>%
   summarise_all(funs(count = count(!is.na(.))))
+
+
+b %>%
+  na.omit() %>%
+  group_by(District) %>%
+  summarise(personas = mean(N)) %>%
+  replace_na() %>%
+  head()
+
+b %>% 
+  group_by(District) %>% 
+  mutate(N = ifelse(is.na(N), mean(N, na.rm = TRUE), N))
+
+
+

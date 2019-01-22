@@ -124,7 +124,7 @@ bikes %>% kable() %>%
 
 ## (10 puntos) Calcular el total de personas que pasa por cada uno de los distritos a lo largo de todo el año.
 
-
+A continuación se agrupan los distritos y se calcula la suma total de personas que pasó por cada distrito en 2016:
 
 ```{r pregunta_5, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
 bikes %>%
@@ -137,6 +137,22 @@ bikes %>%
 
 
 ## (10 puntos) Completar los missing values del atributo N con la media del resto de datos de esa variable pero agrupado de acuerdo a la variable **District**.
+
+En este paso volvemos a proeceder a la agrupación por distrito y posteriormente se aplica la función **mutate()** para aplicar la media a calculada para cada distrito y volcarla solo a los valores NA.
+Finalmente se guardan los ajustes en el dataframe.
+
+```{r pregunta_6, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
+bikes %>%
+  group_by(District) %>%
+  mutate(N = ifelse(is.na(N), mean(N, na.rm = TRUE), N)) -> bikes
+
+
+kable(bikes) %>%
+  kable_styling() %>%
+  scroll_box(width = "50%", height = "200px")
+
+```
+
 
 ## (10 puntos) Crear tres nuevas variables en el data.frame **(Day, Month, Year )** que contengan la información del día, mes y año respectivamente.
 
