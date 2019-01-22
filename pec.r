@@ -21,6 +21,18 @@ b %>%
   summarise_all(funs(count = count(!is.na(.))))
 
 
+
+filtro1 <- b1 %>%
+            group_by(District) %>%
+            summarise(ciclistas = sum(N)) %>%
+            arrange(desc(ciclistas)) %>%
+            slice (1:5) %>%
+            select(-ciclistas)
+
+dat2 <- b1 %>%
+  semi_join(filtro1, by = c("District")) %>%
+  arrange(District)
+
 b %>%
   na.omit() %>%
   group_by(District) %>%

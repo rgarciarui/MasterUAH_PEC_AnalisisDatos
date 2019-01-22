@@ -170,6 +170,48 @@ kable(bikes) %>%
 
 ## (20 puntos) Realizar un gráfico de barras del número de ciclistas para cada día de la semana en cada uno de los seis districtos con más ciclistas (usando facetas)
 
+En primer lugar vamos a ver cuales son los 5 primeros distritos por número de ciclistas:
+
+```{r pregunta_8.1, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
+
+bikes %>%
+  group_by(District) %>%
+  summarise(ciclistas = sum(N)) %>%
+  arrange(desc(ciclistas)) %>%
+  slice(1:5) %>% kable
+
+```
+
+Una vez que sabemos este dato, procedemos a crear un filtro para poder utilizarlo en la selección de datos:
+
+```{r pregunta_8.2, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
+
+filtro1 <- bikes %>%
+  group_by(District) %>%
+  summarise(ciclistas = sum(N)) %>%
+  arrange(desc(ciclistas)) %>%
+  slice(1:5) %>%
+  select(-ciclistas)
+
+kable(filtro1)
+
+```
+
+Ahora podemos proceder a seleccionar los datos del dataframe que cumplen con el filtro:
+
+
+```{r pregunta_8.3, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
+
+bikes %>%
+  semi_join(filtro1, by = c("District")) %>%
+  arrange(District) %>%
+  kable() %>%
+  kable_styling() %>%
+  scroll_box(width = "50%", height = "200px")
+
+```
+
+
 ## (20 puntos) Realizar un único gráfico con la evolución diaria del número de ciclistas en el mes de Enero para los districtos **Berry1**, **University**, **Boyer** y **ParcB**.
 
 
