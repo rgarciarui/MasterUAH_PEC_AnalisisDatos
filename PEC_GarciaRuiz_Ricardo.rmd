@@ -233,6 +233,13 @@ bikes %>%
 
 ## (20 puntos) Realizar un único gráfico con la evolución diaria del número de ciclistas en el mes de Enero para los districtos **Berry1**, **University**, **Boyer** y **ParcB**.
 
+```{r}
+bikes %>%
+  filter(str_detect(District, 'Berry1|University|Boyer|ParcB')) %>%
+  filter(str_detect(Month, '01'))
+```
+
+
 
 
 # Ejercicio 2 (60%)

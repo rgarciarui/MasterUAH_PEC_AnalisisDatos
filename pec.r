@@ -51,3 +51,10 @@ bikes %>%
   ggplot(aes(x = Day, y = N)) +
   geom_point() + geom_smooth() + 
   facet_grid(District~.)
+
+
+bikes %>%
+  filter(str_detect(District, 'Berry1|University|Boyer|ParcB')) %>%
+  filter(str_detect(Month, '01'))
+
+
