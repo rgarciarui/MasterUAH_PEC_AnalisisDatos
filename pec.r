@@ -15,3 +15,7 @@ bikes <- dplyr::select(bikes, -Timestamp)
 
 bikes <- bikes %>%
   gather(key = District, value = N, -Date)
+
+b %>% 
+  group_by(District) %>%
+  summarise_all(funs(count = count(!is.na(.))))

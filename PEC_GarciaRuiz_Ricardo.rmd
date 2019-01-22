@@ -118,11 +118,23 @@ bikes <- bikes %>%
 
 bikes %>% kable() %>%
   kable_styling() %>%
-  scroll_box(width = "100%", height = "200px")
+  scroll_box(width = "50%", height = "200px")
 
 ```
 
 ## (10 puntos) Calcular el total de personas que pasa por cada uno de los distritos a lo largo de todo el año.
+
+
+
+```{r pregunta_5, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
+bikes %>%
+  na.omit() %>%
+  group_by(District) %>%
+  summarise(personas = sum(N)) %>% kable() %>%
+  kable_styling() %>%
+  scroll_box(width = "50%", height = "200px")
+```
+
 
 ## (10 puntos) Completar los missing values del atributo N con la media del resto de datos de esa variable pero agrupado de acuerdo a la variable **District**.
 
