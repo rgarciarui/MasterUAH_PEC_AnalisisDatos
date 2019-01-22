@@ -156,6 +156,18 @@ kable(bikes) %>%
 
 ## (10 puntos) Crear tres nuevas variables en el data.frame **(Day, Month, Year )** que contengan la información del día, mes y año respectivamente.
 
+Se utiliza la función **separate** para crear las 3 nuevas variables. Se elimina la variable original 'Date'.
+
+```{r pregunta_7, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
+bikes %>%
+ separate(Date, c("Day", "Month", "Year"), sep = "/") -> bikes
+
+kable(bikes) %>%
+  kable_styling() %>%
+  scroll_box(width = "50%", height = "200px")
+```
+
+
 ## (20 puntos) Realizar un gráfico de barras del número de ciclistas para cada día de la semana en cada uno de los seis districtos con más ciclistas (usando facetas)
 
 ## (20 puntos) Realizar un único gráfico con la evolución diaria del número de ciclistas en el mes de Enero para los districtos **Berry1**, **University**, **Boyer** y **ParcB**.

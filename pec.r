@@ -32,5 +32,7 @@ b %>%
   group_by(District) %>% 
   mutate(N = ifelse(is.na(N), mean(N, na.rm = TRUE), N))
 
+b1 %>%
+  separate(Date, c("Day", "Month", "Year"), sep = "/") -> b1
 
 
