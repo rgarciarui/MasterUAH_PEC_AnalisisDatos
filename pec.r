@@ -1,5 +1,6 @@
 
 library(tidyverse)
+library(knitr)
 bikes <- read_csv("bikes2016.csv")
 str(bikes)
 
