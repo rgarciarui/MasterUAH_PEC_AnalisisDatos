@@ -3,48 +3,42 @@ library(tidyverse)
 bikes <- read_csv("bikes2016.csv")
 str(bikes)
 
-bikes <- bikes[, -2]
+bikes <- dplyr::select(bikes, -Timestamp)
 
-map(bikes, ~mean(is.na(.)))
-bikes %>% map(~ mean(is.na(.)))
+str(bikes)
 
 bikes %>% 
   summarise_all(funs(100*mean(is.na(.))))
 
-bikes <- dplyr::select(bikes, -Timestamp)
-
 bikes <- bikes %>%
-  gather(key = District, value = N, -Date)
+  gather(key = District, value = N, -Date) 
 
-b %>% 
-  group_by(District) %>%
-  summarise_all(funs(count = count(!is.na(.))))
-
-
-
-filtro1 <- b1 %>%
-            group_by(District) %>%
-            summarise(ciclistas = sum(N)) %>%
-            arrange(desc(ciclistas)) %>%
-            slice (1:5) %>%
-            select(-ciclistas)
-
-dat2 <- b1 %>%
-  semi_join(filtro1, by = c("District")) %>%
-  arrange(District)
-
-b %>%
+bikes %>%
   na.omit() %>%
   group_by(District) %>%
-  summarise(personas = mean(N)) %>%
-  replace_na() %>%
-  head()
+  summarise(personas = sum(N))
 
-b %>% 
-  group_by(District) %>% 
-  mutate(N = ifelse(is.na(N), mean(N, na.rm = TRUE), N))
+bikes %>%
+  group_by(District) %>%
+  mutate(N = ifelse(is.na(N), mean(N, na.rm = TRUE), N)) -> bikes
 
-b1 %>%
-  separate(Date, c("Day", "Month", "Year"), sep = "/") -> b1
+bikes %>%
+  separate(Date, c("Day", "Month", "Year"), sep = "/") -> bikes
 
+bikes %>%
+  group_by(District) %>%
+  summarise(ciclistas = sum(N)) %>%
+  arrange(desc(ciclistas)) %>%
+  slice(1:5)
+
+filtro1 <- bikes %>%
+  group_by(District) %>%
+  summarise(ciclistas = sum(N)) %>%
+  arrange(desc(ciclistas)) %>%
+  slice(1:5) %>%
+  select(-ciclistas)
+
+bikes %>%
+  semi_join(filtro1, by = c("District")) %>%
+  arrange(District)
 
