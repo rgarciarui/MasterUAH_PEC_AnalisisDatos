@@ -11,4 +11,7 @@ bikes %>% map(~ mean(is.na(.)))
 bikes %>% 
   summarise_all(funs(100*mean(is.na(.))))
 
-attach(bikes)
+bikes <- dplyr::select(bikes, -Timestamp)
+
+bikes <- bikes %>%
+  gather(key = District, value = N, -Date)

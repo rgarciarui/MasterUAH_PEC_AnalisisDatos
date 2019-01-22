@@ -101,13 +101,26 @@ bikes %>%
 
 ## (10 puntos) Identificar cuales son las variables que están contenidas en el data.frame. A continuación, transformar ese data.frame para que cada columna represente cada una de las variables. Usar los nombres Date, District y N.
 
+En el tibble tenemos 2 tipos de variables:
 
+* **Date**: que se corresponde con la fecha de la toma de cada dato.
+* **Distritos**: Que se corresponde con todas y cada una de las demás columnas del dataframe.
 
-```{r pregunta_4, echo=FALSE}
-str(bikes)
+Ahora procedemos a realizar una reunión de los datos en 3 variables:
+
+* **Date**: que contine el cmismo conjunto de datos de tiempo originales
+* **District**: que contendrá los nombres de los distritos donde se han tomado las medidas
+* **N**: que contendrá el conjunto de los datos de los distritos segun su asignación en el dataframe original.
+
+```{r pregunta_4, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
+bikes <- bikes %>%
+  gather(key = District, value = N, -Date) 
+
+bikes %>% kable() %>%
+  kable_styling() %>%
+  scroll_box(width = "100%", height = "200px")
 
 ```
-
 
 
 ## (10 puntos) Calcular el total de personas que pasa por cada uno de los distritos a lo largo de todo el año.
