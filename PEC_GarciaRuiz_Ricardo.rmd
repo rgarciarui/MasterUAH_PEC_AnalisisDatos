@@ -122,7 +122,6 @@ bikes %>% kable() %>%
 
 ```
 
-
 ## (10 puntos) Calcular el total de personas que pasa por cada uno de los distritos a lo largo de todo el año.
 
 ## (10 puntos) Completar los missing values del atributo N con la media del resto de datos de esa variable pero agrupado de acuerdo a la variable **District**.
