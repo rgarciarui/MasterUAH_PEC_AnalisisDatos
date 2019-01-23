@@ -70,7 +70,7 @@ Los datos se pueden verificar en la siguiente tabla:
 ```{r 1.pregunta_1.1, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
 kable(cbind(bikes, bikes), caption = "Datos bikes2016.csv") %>%
   kable_styling() %>%
-  scroll_box(width = "100%", height = "200px")
+  scroll_box(width = "100%", height = "300px")
 ```
 
 
@@ -96,7 +96,7 @@ bikes %>%
   summarise_all(funs(100 * mean(is.na(.)))) %>%
   kable() %>%
   kable_styling() %>%
-  scroll_box(width = "100%", height = "200px")
+  scroll_box(width = "100%", height = "300px")
 ```
 
 
@@ -120,7 +120,7 @@ bikes <- bikes %>%
 bikes %>%
   kable() %>%
   kable_styling() %>%
-  scroll_box(width = "50%", height = "200px")
+  scroll_box(width = "50%", height = "300px")
 
 ```
 
@@ -135,7 +135,7 @@ bikes %>%
   summarise(personas = sum(N)) %>%
   kable() %>%
   kable_styling() %>%
-  scroll_box(width = "50%", height = "200px")
+  scroll_box(width = "50%", height = "300px")
 ```
 
 
@@ -152,7 +152,7 @@ bikes %>%
 
 kable(bikes) %>%
   kable_styling() %>%
-  scroll_box(width = "50%", height = "200px")
+  scroll_box(width = "50%", height = "300px")
 
 ```
 
@@ -167,7 +167,7 @@ bikes %>%
 
 kable(bikes) %>%
   kable_styling() %>%
-  scroll_box(width = "50%", height = "200px")
+  scroll_box(width = "50%", height = "300px")
 ```
 
 
@@ -211,7 +211,7 @@ bikes %>%
   arrange(District) %>%
   kable() %>%
   kable_styling() %>%
-  scroll_box(width = "50%", height = "200px")
+  scroll_box(width = "50%", height = "300px")
 
 ```
 
@@ -245,7 +245,7 @@ bikes %>%
   filter(str_detect(Month, "01")) %>%
   kable() %>%
   kable_styling() %>%
-  scroll_box(width = "50%", height = "200px")
+  scroll_box(width = "50%", height = "300px")
 ```
 
 Ahora procederemos a realizar la gráfica conjunta de cada variable:
@@ -310,7 +310,7 @@ Los datos se pueden verificar en la siguiente tabla:
 ```{r 2.pregunta_1.1, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
 kable(cbind(titanic, titanic), caption = "Datos titanic.csv") %>%
   kable_styling() %>%
-  scroll_box(width = "100%", height = "200px")
+  scroll_box(width = "100%", height = "300px")
 ```
 
 
@@ -336,7 +336,7 @@ titanic %>%
   summarise_all(funs(100 * mean(is.na(.)))) %>%
   kable() %>%
   kable_styling() %>%
-  scroll_box(width = "100%", height = "200px")
+  scroll_box(width = "100%", height = "300px")
 ```
 
 
@@ -373,7 +373,7 @@ titanic %>%
   mutate(Title = ifelse(!Title %in% c("Mr.", "Mrs.", "Master.", "Miss."), "Otro", Title)) %>%
   kable() %>%
   kable_styling() %>%
-  scroll_box(width = "100%", height = "200px")
+  scroll_box(width = "100%", height = "300px")
 ```
 
 
