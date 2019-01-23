@@ -312,7 +312,7 @@ kable(cbind(titanic, titanic), caption = "Datos titanic.csv") %>%
 
 ## (2 puntos) Calcular el porcentaje de pasajeros que sobrevivió.
 
-A continuación, seleccionamos unicamente la variable **Survived** y realizamos un sencillo cálculo:
+A continuación, seleccionamos únicamente la variable **Survived** y realizamos un sencillo cálculo:
 
 
 ```{r 2.pregunta_2, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
@@ -325,6 +325,7 @@ titanic %>%
 
 ## (4 puntos) Calcular el porcentaje de missing values en cada uno de los atributos.
 
+Realizamos el cálculo del porcentaje de valores 'NA' en cada una de las variables, aunque solo ser´ñia necesario en 3 que son las únicas que tienen valores ausentes:
 
 ```{r 2.pregunta_3, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
 titanic %>%
