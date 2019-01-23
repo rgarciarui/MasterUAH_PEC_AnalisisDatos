@@ -338,6 +338,17 @@ titanic %>%
 
 ## (2 puntos) Eliminar la variable **Cabin** del dataframe.
 
+Eliminamos del tibble la variable **Cabin** y mostramos la estructura resultante:
+
+
+```{r 2.pregunta_4, echo=FALSE}
+titanic <- dplyr::select(titanic, -Cabin)
+
+str(titanic)
+
+```
+
+
 ## (8 puntos) Crear una nueva variable **Title** a partir de **Name** con los valores **Master** (hombre soltero), **Miss** (mujer soltera), **Mr.** (hombre casado), **Mrs.** (mujer casada) y Otro a partir de la variable **nombre**. Es importante tener en cuenta que el título **Miss** está en ocasiones codificado con su abreviatura en frances **Mlle** (mademoiselle) y lo mismo ocurre con **Mrs.**, que en ocasiones aparece como **Ms.** ó **Mme** (madame).
 
 ## (4 puntos) Explorar la relación entre las variables **Age** y la nueva variable **Title** mediante un boxplot para cada uno de los valores de la misma. ¿Tienen alguna relación?.
