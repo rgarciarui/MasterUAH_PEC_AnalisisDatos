@@ -289,18 +289,29 @@ Con el fichero de datos anterior:
 
 ## (4 puntos) Leer el fichero **titanic.csv** como un dataframe.
 
-
-
-## (2 puntos) Calcular el porcentaje de pasajeros que sobrevivió.
-
 Cargamos el conjunto de datos desde el fichero 'titanic.csv' y lo mostramos: 
 
-```{r pregunta_1, echo=FALSE}
+```{r pregunta_2.1, echo=FALSE}
 titanic <- read_csv("titanic.csv")
 
 str(titanic)
 
 ```
+
+
+y podemos ver la estructura de datos que tiene nuestro dataframe cuando se carga mediante y tibble de tydiverse.
+
+Los datos se pueden verificar en la siguiente tabla:
+
+```{r pregunta_2.2, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
+kable(cbind(titanic, titanic), caption = "Datos titanic.csv") %>%
+  kable_styling() %>%
+  scroll_box(width = "100%", height = "200px")
+```
+
+
+## (2 puntos) Calcular el porcentaje de pasajeros que sobrevivió.
+
 
 
 ## (4 puntos) Calcular el porcentaje de missing values en cada uno de los atributos.
