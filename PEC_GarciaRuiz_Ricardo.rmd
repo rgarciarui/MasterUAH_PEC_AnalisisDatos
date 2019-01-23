@@ -379,8 +379,8 @@ kable(titanic) %>%
 
 
 ## (4 puntos) Explorar la relación entre las variables **Age** y la nueva variable **Title** mediante un boxplot para cada uno de los valores de la misma. ¿Tienen alguna relación?.
-
-
+  
+En primer lugar esablecemos una canal seleccionando las dos variables de comparación, **Age** y **Title**, eliminamos los datos de **Age** con 'NA' y luego mostramos el gráfico: 
 
 ```{r 2.pregunta_6, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
 titanic %>%
