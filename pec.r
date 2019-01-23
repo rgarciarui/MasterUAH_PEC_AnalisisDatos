@@ -55,7 +55,17 @@ bikes %>%
 
 
 bikes %>%
-  filter(str_detect(District, 'Berry1|University|Boyer|ParcB')) %>%
-  filter(str_detect(Month, '01'))
+  filter(District %in% c('Berri1', 'University', 'Boyer', 'Parc')) %>%
+  filter(str_detect(Month, '01')) %>% kable
 
-
+bikes %>%
+  filter(District %in% c("Berri1", "University", "Boyer", "Parc")) %>%
+  filter(str_detect(Month, "01")) %>%
+  ggplot(aes(x = Day, y = N, group = District)) +
+  geom_line(aes(color = District)) +
+  geom_point(aes(color = District)) +
+  labs(
+    title = " Evolucion diaria del numero de ciclistas",
+    x = "Dias (enero)",
+    y = "Numero ciclistas"
+  )

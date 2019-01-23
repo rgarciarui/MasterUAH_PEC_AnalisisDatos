@@ -233,13 +233,39 @@ bikes %>%
 
 ## (20 puntos) Realizar un único gráfico con la evolución diaria del número de ciclistas en el mes de Enero para los districtos **Berry1**, **University**, **Boyer** y **ParcB**.
 
+En primer lugar, vamos a verificar el conjunto de datos que se va a tratar según la propuesta:
+
 ```{r pregunta_9.1, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
 bikes %>%
-  filter(str_detect(District, 'Berry1|University|Boyer|ParcB')) %>%
-  filter(str_detect(Month, '01')) %>% kable
+  filter(District %in% c('Berri1', 'University', 'Boyer', 'Parc')) %>%
+  filter(str_detect(Month, '01')) %>% 
+  kable() %>%
+  kable_styling() %>%
+  scroll_box(width = "50%", height = "200px")
+```
+
+Ahora procederemos a realizar la gráfica conjunta de cada variable:
+
+
+```{r pregunta_9.2, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
+bikes %>%
+  filter(District %in% c("Berri1", "University", "Boyer", "Parc")) %>%
+  filter(str_detect(Month, "01")) %>%
+  ggplot(aes(x = Day, y = N, group = District)) +
+  geom_line(aes(color = District)) +
+  geom_point(aes(color = District)) +
+  labs(
+    title = " Evolucion diaria del numero de ciclistas",
+    x = "Dias (enero)",
+    y = "Numero ciclistas"
+  )
 ```
 
 
+```{r cierre_pregunta, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
+# eliminamos las variables de memoria para que no ocupen espacio util
+rm(bikes, filtro1)
+```
 
 
 # Ejercicio 2 (60%)
@@ -263,7 +289,19 @@ Con el fichero de datos anterior:
 
 ## (4 puntos) Leer el fichero **titanic.csv** como un dataframe.
 
+
+
 ## (2 puntos) Calcular el porcentaje de pasajeros que sobrevivió.
+
+Cargamos el conjunto de datos desde el fichero 'titanic.csv' y lo mostramos: 
+
+```{r pregunta_1, echo=FALSE}
+titanic <- read_csv("titanic.csv")
+
+str(titanic)
+
+```
+
 
 ## (4 puntos) Calcular el porcentaje de missing values en cada uno de los atributos.
 
