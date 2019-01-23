@@ -92,8 +92,9 @@ Esta accion se puede abordar de diferente maneras, incluyendo el uso de la libre
 
 
 ```{r 1.pregunta_3, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
-bikes %>% 
-  summarise_all(funs(100*mean(is.na(.)))) %>% kable() %>%
+bikes %>%
+  summarise_all(funs(100 * mean(is.na(.)))) %>%
+  kable() %>%
   kable_styling() %>%
   scroll_box(width = "100%", height = "200px")
 ```
@@ -114,9 +115,10 @@ Ahora procedemos a realizar una reunión de los datos en 3 variables:
 
 ```{r 1.pregunta_4, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
 bikes <- bikes %>%
-  gather(key = District, value = N, -Date) 
+  gather(key = District, value = N, -Date)
 
-bikes %>% kable() %>%
+bikes %>%
+  kable() %>%
   kable_styling() %>%
   scroll_box(width = "50%", height = "200px")
 
@@ -130,7 +132,8 @@ A continuación se agrupan los distritos y se calcula la suma total de personas 
 bikes %>%
   na.omit() %>%
   group_by(District) %>%
-  summarise(personas = sum(N)) %>% kable() %>%
+  summarise(personas = sum(N)) %>%
+  kable() %>%
   kable_styling() %>%
   scroll_box(width = "50%", height = "200px")
 ```
@@ -160,7 +163,7 @@ Se utiliza la función **separate** para crear las 3 nuevas variables. Se elimin
 
 ```{r 1.pregunta_7, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
 bikes %>%
- separate(Date, c("Day", "Month", "Year"), sep = "/") -> bikes
+  separate(Date, c("Day", "Month", "Year"), sep = "/") -> bikes
 
 kable(bikes) %>%
   kable_styling() %>%
@@ -178,7 +181,8 @@ bikes %>%
   group_by(District) %>%
   summarise(ciclistas = sum(N)) %>%
   arrange(desc(ciclistas)) %>%
-  slice(1:5) %>% kable
+  slice(1:5) %>%
+  kable()
 
 ```
 
@@ -218,15 +222,15 @@ bikes %>%
   semi_join(filtro1, by = c("District")) %>%
   arrange(District) %>%
   ggplot(aes(x = Day, y = N)) +
-  geom_point() + geom_smooth() + 
-  facet_grid(District~.)
+  geom_point() + geom_smooth() +
+  facet_grid(District ~ .)
 
 bikes %>%
   semi_join(filtro1, by = c("District")) %>%
   arrange(District) %>%
   ggplot(aes(x = Day, y = N)) +
   geom_point() + geom_smooth() + coord_flip() +
-  facet_wrap(District~.)
+  facet_wrap(District ~ .)
 ```
 
 
@@ -237,8 +241,8 @@ En primer lugar, vamos a verificar el conjunto de datos que se va a tratar segú
 
 ```{r 1.pregunta_9.1, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
 bikes %>%
-  filter(District %in% c('Berri1', 'University', 'Boyer', 'Parc')) %>%
-  filter(str_detect(Month, '01')) %>% 
+  filter(District %in% c("Berri1", "University", "Boyer", "Parc")) %>%
+  filter(str_detect(Month, "01")) %>%
   kable() %>%
   kable_styling() %>%
   scroll_box(width = "50%", height = "200px")
@@ -350,6 +354,28 @@ str(titanic)
 
 
 ## (8 puntos) Crear una nueva variable **Title** a partir de **Name** con los valores **Master** (hombre soltero), **Miss** (mujer soltera), **Mr.** (hombre casado), **Mrs.** (mujer casada) y Otro a partir de la variable **nombre**. Es importante tener en cuenta que el título **Miss** está en ocasiones codificado con su abreviatura en frances **Mlle** (mademoiselle) y lo mismo ocurre con **Mrs.**, que en ocasiones aparece como **Ms.** ó **Mme** (madame).
+
+Para realizar esta tarea procedemos de la forma siguiente:
+
+1. Separamos la variable original **Name** en dos nuevas variables usando de token separador la ',' que separa nombre de apellidos.
+2. Separamos nuevamente ahora esta variable 'intermedia' denominada **Nombre** en 2 nuevas variables, la segunda de las cuales ya contiene el conjunto de datos de titulo.
+3. Descartamos las variables intermedias que han resultado del proceso de separación y que no aportan nada al resultado.
+4. Realizamos la limpieza de la neva variable **Title** ajustando los titulos que nos son correctos con los aceptados y, finalmente, el resto de datos no ajustables se sustituyen por la palabra 'Otros'.
+
+
+```{r 2.pregunta_5, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
+titanic %>%
+  separate(Name, c("apellido", "Nombre"), sep = ",") %>%
+  separate(Nombre, c("none", "Title"), sep = " ") %>%
+  select(-none, -apellido) %>%
+  mutate(Title = ifelse(Title == "Mlle.", "Miss.", Title)) %>%
+  mutate(Title = ifelse(Title == "Ms.|Mme.", "Mrs.", Title)) %>%
+  mutate(Title = ifelse(!Title %in% c("Mr.", "Mrs.", "Master.", "Miss."), "Otro", Title)) %>%
+  kable() %>%
+  kable_styling() %>%
+  scroll_box(width = "100%", height = "200px")
+```
+
 
 ## (4 puntos) Explorar la relación entre las variables **Age** y la nueva variable **Title** mediante un boxplot para cada uno de los valores de la misma. ¿Tienen alguna relación?.
 
