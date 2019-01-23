@@ -360,7 +360,7 @@ Para realizar esta tarea procedemos de la forma siguiente:
 1. Separamos la variable original **Name** en dos nuevas variables usando de token separador la ',' que separa nombre de apellidos.
 2. Separamos nuevamente ahora esta variable 'intermedia' denominada **Nombre** en 2 nuevas variables, la segunda de las cuales ya contiene el conjunto de datos de titulo.
 3. Descartamos las variables intermedias que han resultado del proceso de separación y que no aportan nada al resultado.
-4. Realizamos la limpieza de la neva variable **Title** ajustando los titulos que nos son correctos con los aceptados y, finalmente, el resto de datos no ajustables se sustituyen por la palabra 'Otros'.
+4. Realizamos la limpieza de la nueva variable **Title** ajustando los titulos que no son correctos con los aceptados y, finalmente, el resto de datos no ajustables se sustituyen por la palabra 'Otros'.
 
 
 ```{r 2.pregunta_5, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
