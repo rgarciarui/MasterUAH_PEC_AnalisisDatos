@@ -96,7 +96,7 @@ bikes %>%
   summarise_all(funs(100 * mean(is.na(.)))) %>%
   kable() %>%
   kable_styling() %>%
-  scroll_box(width = "100%", height = "300px")
+  scroll_box(width = "100%", height = "200px")
 ```
 
 
@@ -336,7 +336,7 @@ titanic %>%
   summarise_all(funs(100 * mean(is.na(.)))) %>%
   kable() %>%
   kable_styling() %>%
-  scroll_box(width = "100%", height = "300px")
+  scroll_box(width = "100%", height = "100px")
 ```
 
 
@@ -370,14 +370,26 @@ titanic %>%
   select(-none, -apellido) %>%
   mutate(Title = ifelse(Title == "Mlle.", "Miss.", Title)) %>%
   mutate(Title = ifelse(Title == "Ms.|Mme.", "Mrs.", Title)) %>%
-  mutate(Title = ifelse(!Title %in% c("Mr.", "Mrs.", "Master.", "Miss."), "Otro", Title)) %>%
-  kable() %>%
+  mutate(Title = ifelse(!Title %in% c("Mr.", "Mrs.", "Master.", "Miss."), "Otro", Title)) -> titanic
+
+kable(titanic) %>%
   kable_styling() %>%
-  scroll_box(width = "100%", height = "300px")
+  scroll_box(width = "100%", height = "200px")
 ```
 
 
 ## (4 puntos) Explorar la relación entre las variables **Age** y la nueva variable **Title** mediante un boxplot para cada uno de los valores de la misma. ¿Tienen alguna relación?.
+
+
+
+```{r 2.pregunta_6, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
+titanic %>%
+  select(Title, Age) %>%
+  drop_na(Age) %>%
+  ggplot(aes(x=Title, y=Age, fill=Title)) +
+  geom_boxplot()
+```
+
 
 ## (4 puntos) Explorar la relación entre **Age**, **Pclass** y **Title** en varios gráficos de dispersión con colores, donde el color representa la supervivencia (Pista: usar facetas).
 
