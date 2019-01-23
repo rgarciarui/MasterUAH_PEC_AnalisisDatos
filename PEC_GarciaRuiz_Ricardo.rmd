@@ -56,7 +56,7 @@ library("kableExtra")
 
 Cargamos el conjunto de datos desde el fichero 'bikes2016.csv' y lo mostramos: 
 
-```{r pregunta_1, echo=FALSE}
+```{r 1.pregunta_1, echo=FALSE}
 bikes <- read_csv("bikes2016.csv")
 
 str(bikes)
@@ -67,7 +67,7 @@ y podemos ver la estructura de datos que tiene nuestro dataframe cuando se carga
 
 Los datos se pueden verificar en la siguiente tabla:
 
-```{r pregunta_1.1, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
+```{r 1.pregunta_1.1, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
 kable(cbind(bikes, bikes), caption = "Datos bikes2016.csv") %>%
   kable_styling() %>%
   scroll_box(width = "100%", height = "200px")
@@ -78,7 +78,7 @@ kable(cbind(bikes, bikes), caption = "Datos bikes2016.csv") %>%
 
 La variables 'timestamp' se encuentra localizada en la segunda columna por lo que lo más sencillo es eliminar esa columna del conjunto de datos.
 
-```{r pregunta_2, echo=FALSE}
+```{r 1.pregunta_2, echo=FALSE}
 bikes <- dplyr::select(bikes, -Timestamp)
 
 str(bikes)
@@ -88,10 +88,10 @@ str(bikes)
 
 ## (10 puntos) Calcular el porcentaje de missing values en cada una de las columnas.
 
-Esta accion se puede abordar de diferente maneras, incluyendo el uso de la librería **dplyr**. Por ejemplo con '**bikes %>% map(~ mean(is.na(.)))**'. No obsante, vamos a usar una variante que nos permite su representación en forma de tabla:
+Esta accion se puede abordar de diferente maneras, incluyendo el uso de la librería **dplyr**. Por ejemplo con '**bikes %>% map(~ mean(is.na(.)))**'. No obstante, vamos a usar una variante que nos permite su representación en forma de tabla:
 
 
-```{r pregunta_3, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
+```{r 1.pregunta_3, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
 bikes %>% 
   summarise_all(funs(100*mean(is.na(.)))) %>% kable() %>%
   kable_styling() %>%
@@ -112,7 +112,7 @@ Ahora procedemos a realizar una reunión de los datos en 3 variables:
 * **District**: que contendrá los nombres de los distritos donde se han tomado las medidas
 * **N**: que contendrá el conjunto de los datos de los distritos segun su asignación en el dataframe original.
 
-```{r pregunta_4, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
+```{r 1.pregunta_4, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
 bikes <- bikes %>%
   gather(key = District, value = N, -Date) 
 
@@ -126,7 +126,7 @@ bikes %>% kable() %>%
 
 A continuación se agrupan los distritos y se calcula la suma total de personas que pasó por cada distrito en 2016:
 
-```{r pregunta_5, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
+```{r 1.pregunta_5, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
 bikes %>%
   na.omit() %>%
   group_by(District) %>%
@@ -138,10 +138,10 @@ bikes %>%
 
 ## (10 puntos) Completar los missing values del atributo N con la media del resto de datos de esa variable pero agrupado de acuerdo a la variable **District**.
 
-En este paso volvemos a proeceder a la agrupación por distrito y posteriormente se aplica la función **mutate()** para aplicar la media a calculada para cada distrito y volcarla solo a los valores NA.
+En este paso volvemos a proceder a la agrupación por distrito y posteriormente se aplica la función **mutate()** para aplicar la media a calculada para cada distrito y volcarla solo a los valores NA.
 Finalmente se guardan los ajustes en el dataframe.
 
-```{r pregunta_6, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
+```{r 1.pregunta_6, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
 bikes %>%
   group_by(District) %>%
   mutate(N = ifelse(is.na(N), mean(N, na.rm = TRUE), N)) -> bikes
@@ -158,7 +158,7 @@ kable(bikes) %>%
 
 Se utiliza la función **separate** para crear las 3 nuevas variables. Se elimina la variable original 'Date'.
 
-```{r pregunta_7, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
+```{r 1.pregunta_7, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
 bikes %>%
  separate(Date, c("Day", "Month", "Year"), sep = "/") -> bikes
 
@@ -172,7 +172,7 @@ kable(bikes) %>%
 
 En primer lugar vamos a ver cuales son los 5 primeros distritos por número de ciclistas:
 
-```{r pregunta_8.1, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
+```{r 1.pregunta_8.1, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
 
 bikes %>%
   group_by(District) %>%
@@ -184,7 +184,7 @@ bikes %>%
 
 Una vez que sabemos este dato, procedemos a crear un filtro para poder utilizarlo en la selección de datos:
 
-```{r pregunta_8.2, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
+```{r 1.pregunta_8.2, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
 
 filtro1 <- bikes %>%
   group_by(District) %>%
@@ -200,7 +200,7 @@ kable(filtro1)
 Ahora podemos proceder a seleccionar los datos del dataframe que cumplen con el filtro:
 
 
-```{r pregunta_8.3, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
+```{r 1.pregunta_8.3, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
 
 bikes %>%
   semi_join(filtro1, by = c("District")) %>%
@@ -213,7 +213,7 @@ bikes %>%
 
 Y en este punto procedemos a la visualización de los datos:
 
-```{r pregunta_8.4, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
+```{r 1.pregunta_8.4, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
 bikes %>%
   semi_join(filtro1, by = c("District")) %>%
   arrange(District) %>%
@@ -235,7 +235,7 @@ bikes %>%
 
 En primer lugar, vamos a verificar el conjunto de datos que se va a tratar según la propuesta:
 
-```{r pregunta_9.1, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
+```{r 1.pregunta_9.1, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
 bikes %>%
   filter(District %in% c('Berri1', 'University', 'Boyer', 'Parc')) %>%
   filter(str_detect(Month, '01')) %>% 
@@ -247,7 +247,7 @@ bikes %>%
 Ahora procederemos a realizar la gráfica conjunta de cada variable:
 
 
-```{r pregunta_9.2, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
+```{r 1.pregunta_9.2, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
 bikes %>%
   filter(District %in% c("Berri1", "University", "Boyer", "Parc")) %>%
   filter(str_detect(Month, "01")) %>%
@@ -262,7 +262,7 @@ bikes %>%
 ```
 
 
-```{r cierre_pregunta, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
+```{r 1.cierre_pregunta, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
 # eliminamos las variables de memoria para que no ocupen espacio util
 rm(bikes, filtro1)
 ```
@@ -291,7 +291,7 @@ Con el fichero de datos anterior:
 
 Cargamos el conjunto de datos desde el fichero 'titanic.csv' y lo mostramos: 
 
-```{r pregunta_2.1, echo=FALSE}
+```{r 2.pregunta_1, echo=FALSE}
 titanic <- read_csv("titanic.csv")
 
 str(titanic)
@@ -303,7 +303,7 @@ y podemos ver la estructura de datos que tiene nuestro dataframe cuando se carga
 
 Los datos se pueden verificar en la siguiente tabla:
 
-```{r pregunta_2.2, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
+```{r 2.pregunta_1.1, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
 kable(cbind(titanic, titanic), caption = "Datos titanic.csv") %>%
   kable_styling() %>%
   scroll_box(width = "100%", height = "200px")
@@ -312,9 +312,28 @@ kable(cbind(titanic, titanic), caption = "Datos titanic.csv") %>%
 
 ## (2 puntos) Calcular el porcentaje de pasajeros que sobrevivió.
 
+A continuación, seleccionamos unicamente la variable **Survived** y realizamos un sencillo cálculo:
+
+
+```{r 2.pregunta_2, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
+titanic %>%
+  select(Survived) %>%
+  summarise(Sobrevivientes = 100 * (sum(Survived) / n())) %>%
+  kable()
+```
 
 
 ## (4 puntos) Calcular el porcentaje de missing values en cada uno de los atributos.
+
+
+```{r 2.pregunta_3, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
+titanic %>%
+  summarise_all(funs(100 * mean(is.na(.)))) %>%
+  kable() %>%
+  kable_styling() %>%
+  scroll_box(width = "100%", height = "200px")
+```
+
 
 ## (2 puntos) Eliminar la variable **Cabin** del dataframe.
 
