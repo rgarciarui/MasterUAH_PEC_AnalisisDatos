@@ -222,14 +222,17 @@ bikes %>%
   semi_join(filtro1, by = c("District")) %>%
   arrange(District) %>%
   ggplot(aes(x = Day, y = N)) +
-  geom_point() + geom_smooth() +
+  geom_point() + 
+  geom_smooth(method = "loess", formula = "y ~ x") +
   facet_grid(District ~ .)
 
 bikes %>%
   semi_join(filtro1, by = c("District")) %>%
   arrange(District) %>%
   ggplot(aes(x = Day, y = N)) +
-  geom_point() + geom_smooth() + coord_flip() +
+  geom_point() + 
+  geom_smooth(method = "loess", formula = "y ~ x") + 
+  coord_flip() +
   facet_wrap(District ~ .)
 ```
 
@@ -257,6 +260,12 @@ bikes %>%
   filter(str_detect(Month, "01")) %>%
   ggplot(aes(x = Day, y = N, group = District)) +
   geom_line(aes(color = District)) +
+  geom_smooth(method = "loess", 
+              formula = "y ~ x", 
+              colour="black", 
+              size=0.5, 
+              fullrange = FALSE,
+              span = 1 ) +
   geom_point(aes(color = District)) +
   labs(
     title = " Evolucion diaria del numero de ciclistas",
@@ -418,7 +427,39 @@ Aplicación al conjunto de datos 'titanic':
 
 ## (4 puntos) Explorar la relación entre **Age**, **Pclass** y **Title** en varios gráficos de dispersión con colores, donde el color representa la supervivencia (Pista: usar facetas).
 
+
+```{r 2.pregunta_7, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
+titanic %>%
+  select(Age, Pclass, Title) %>%
+  drop_na(Age) %>%
+  ggplot(aes(x = Pclass, y = Age, colour = factor(Pclass))) +
+  geom_point() +
+  geom_smooth(method = "loess", formula = "y ~ x") +
+  facet_grid(Pclass ~ .)
+
+titanic %>%
+  select(Age, Pclass, Title) %>%
+  drop_na(Age) %>%
+  ggplot(aes(x = Title, y = Age, colour = factor(Title))) +
+  geom_point() +
+  geom_smooth(method = "loess", formula = "y ~ x") +
+  facet_grid(Title ~ .)
+
+titanic %>%
+  select(Age, Pclass, Title) %>%
+  drop_na(Age) %>%
+  ggplot(aes(x = Title, y = Pclass, colour = factor(Title))) +
+  geom_point() +
+  geom_smooth(method = "loess", formula = "y ~ x") +
+  facet_grid(Title ~ .)
+```
+  
+
+
 ## (8 puntos) Completar los missing values del atributo **Age** con la mediana del resto de datos de esa variable pero agrupado de acuerdo a las variables **Pclass** y **Title**.
+
+
+
 
 ## (2 puntos) Después de realizar las operaciones anteriores, eliminar ahora cualquier fila que tenga al menos un NA.
 

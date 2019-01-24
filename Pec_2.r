@@ -42,3 +42,28 @@ titanic %>%
   drop_na(Age) %>%
   ggplot(aes(x=Title, y=Age, fill=Title)) +
   geom_boxplot()
+
+
+titanic %>%
+  select(Age, Pclass, Title) %>%
+  drop_na(Age) %>%
+  ggplot(aes(x = Pclass, y = Age, colour = factor(Pclass))) +
+  geom_point() +
+  geom_smooth(method = "loess", formula = "y ~ x") +
+  facet_grid(Pclass ~ .)
+
+titanic %>%
+  select(Age, Pclass, Title) %>%
+  drop_na(Age) %>%
+  ggplot(aes(x = Title, y = Age, colour = factor(Title))) +
+  geom_point() +
+  geom_smooth(method = "loess", formula = "y ~ x") +
+  facet_grid(Title ~ .)
+
+titanic %>%
+  select(Age, Pclass, Title) %>%
+  drop_na(Age) %>%
+  ggplot(aes(x = Title, y = Pclass, colour = factor(Title))) +
+  geom_point() +
+  geom_smooth(method = "loess", formula = "y ~ x") +
+  facet_grid(Title ~ .)
