@@ -389,6 +389,31 @@ titanic %>%
   ggplot(aes(x=Title, y=Age, fill=Title)) +
   geom_boxplot()
 ```
+  
+  
+Características generales a analizar:
+  
+* **Mediana**: La mediana está representada por la línea en la caja. La mediana es una medida común del centro de sus datos. La mitad de las observaciones es menor que o igual al valor y la mitad es mayor que o igual al valor.
+* **Caja de rango intercuartil**: La caja de rango intercuartil representa el 50% intermedio de los datos. Muestra la distancia entre el primer cuartil y el tercer cuartil (Q3-Q1).
+* **Bigotes**: Los bigotes se extienden de cualquier lado de la caja. Los bigotes representan los rangos del 25 % de valores de datos de la parte inferior y el 25 % de la parte inferior, excluyendo los valores atípicos.
+
+Otras consideraciones de interés son:
+* **Tamaño de la muestra (n)**: El tamaño de la muestra puede afectar la apariencia de la gráfica. Una gráfica de caja funciona mejor cuando el tamaño de la muestra es al menos de 20. Si el tamaño de la muestra es demasiado pequeño, los cuartiles y los valores atípicos que la gráfica de caja muestra pueden no ser significativos.
+* **Datos asimétricos**: Cuando los datos son asimétricos, la mayoría de los datos se ubican en la parte superior o inferior de la gráfica. La asimetría indica que los datos pueden no estar distribuidos normalmente.
+* **Valores atípicos**: Los valores atípicos, que son valores de datos que están muy alejados de otros valores de datos, pueden afectar fuertemente sus resultados. Frecuentemente, es más fácil identificar los valores atípicos en una gráfica de caja.
+* **Centros**: Buscar diferencias entre los centros de los grupos.
+* **Dispersiones**: Buscar diferencias entre las dispersiones de los grupos.
+
+Aplicación al conjunto de datos 'titanic':
+
+* **Mediana**: En las variables 'Master', 'Miss', 'Mr.' y 'Mrs' la linea de caja esta un poco por debajo de la zona central de caja. En la variable 'Otro' dicha linea de caja esta muy desplazada a la parte superior. En este aspecto, las 4 primeras variables muestran una homogeneidad en el resultado.
+* **Caja de rango intercuartil**: 
+* **Bigotes**: 
+* **Tamaño de la muestra (n)**: En todos los casos, el tamaño de la muestra es muy superior a 20 y por tanto entendemos que la representación de estos datos mediante box plot da una imagen real de su estructura.
+* **Datos asimétricos**: 
+* **Valores atípicos**: 
+* **Centros**: 
+* **Dispersiones**: 
 
 
 ## (4 puntos) Explorar la relación entre **Age**, **Pclass** y **Title** en varios gráficos de dispersión con colores, donde el color representa la supervivencia (Pista: usar facetas).
