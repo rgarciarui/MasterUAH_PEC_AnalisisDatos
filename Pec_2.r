@@ -84,5 +84,14 @@ kable(titanic) %>%
   scroll_box(width = "100%", height = "300px")
 
 
+titanic %>%
+  filter_all(any_vars(is.na(.))) %>%
+  kable() %>%
+  kable_styling() %>%
+  scroll_box(width = "100%", height = "200px")
+
+
+titanic %>%
+  drop_na() -> t
 
 

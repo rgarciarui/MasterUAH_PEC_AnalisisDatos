@@ -481,11 +481,24 @@ kable(titanic) %>%
 
 
 
-```{r 2.pregunta_9, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
+```{r 2.pregunta_9.1, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
+titanic %>%
+  filter_all(any_vars(is.na(.))) %>%
+  kable() %>%
+  kable_styling() %>%
+  scroll_box(width = "100%", height = "200px")
 
 ```
 
+```{r 2.pregunta_9.2, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
+titanic %>%
+  drop_na() -> titanic
 
+kable(titanic) %>%
+  kable_styling() %>%
+  scroll_box(width = "100%", height = "500px")
+
+```
 
 ## (2 puntos) Calcular la probabilidad de supervivencia en base al género (Sex). ¿Qué conclusión(es) obtienes del resultado?
 
