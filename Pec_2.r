@@ -92,6 +92,24 @@ titanic %>%
 
 
 titanic %>%
-  drop_na() -> t
+  drop_na() -> titanic
+
+titanic %>%
+  group_by(Survived, Sex) %>%
+  summarise (n = n()) %>%
+  mutate(freq = n / sum(n)) %>%
+  kable() %>%
+  kable_styling() %>%
+  scroll_box(width = "50%", height = "225px")
+
+
+
+
+
+
+
+
+
+
 
 
