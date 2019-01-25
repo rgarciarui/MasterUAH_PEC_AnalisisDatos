@@ -45,25 +45,44 @@ titanic %>%
 
 
 titanic %>%
-  select(Age, Pclass, Title) %>%
+  select(Age, Pclass, Survived) %>%
   drop_na(Age) %>%
-  ggplot(aes(x = Pclass, y = Age, colour = factor(Pclass))) +
+  ggplot(aes(x = Pclass, y = Age, colour = factor(Survived))) +
   geom_point() +
   geom_smooth(method = "loess", formula = "y ~ x") +
   facet_grid(Pclass ~ .)
 
 titanic %>%
-  select(Age, Pclass, Title) %>%
+  select(Age, Title, Survived) %>%
   drop_na(Age) %>%
-  ggplot(aes(x = Title, y = Age, colour = factor(Title))) +
+  ggplot(aes(x = Title, y = Age, colour = factor(Survived))) +
   geom_point() +
   geom_smooth(method = "loess", formula = "y ~ x") +
   facet_grid(Title ~ .)
 
 titanic %>%
-  select(Age, Pclass, Title) %>%
-  drop_na(Age) %>%
-  ggplot(aes(x = Title, y = Pclass, colour = factor(Title))) +
+  select(Pclass, Title, Survived) %>%
+  ggplot(aes(x = Title, y = Pclass, colour = factor(Survived))) +
   geom_point() +
   geom_smooth(method = "loess", formula = "y ~ x") +
   facet_grid(Title ~ .)
+
+
+titanic %>%
+  group_by(Pclass, Title) %>%
+  mutate(
+    Age = ifelse(
+      is.na(Age),
+      mean(Age, na.rm = TRUE),
+      Age
+    )
+  ) -> titanic
+
+
+kable(titanic) %>%
+  kable_styling() %>%
+  scroll_box(width = "100%", height = "300px")
+
+
+
+

@@ -430,25 +430,24 @@ Aplicación al conjunto de datos 'titanic':
 
 ```{r 2.pregunta_7, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
 titanic %>%
-  select(Age, Pclass, Title) %>%
+  select(Age, Pclass, Survived) %>%
   drop_na(Age) %>%
-  ggplot(aes(x = Pclass, y = Age, colour = factor(Pclass))) +
+  ggplot(aes(x = Pclass, y = Age, colour = factor(Survived))) +
   geom_point() +
   geom_smooth(method = "loess", formula = "y ~ x") +
   facet_grid(Pclass ~ .)
 
 titanic %>%
-  select(Age, Pclass, Title) %>%
+  select(Age, Title, Survived) %>%
   drop_na(Age) %>%
-  ggplot(aes(x = Title, y = Age, colour = factor(Title))) +
+  ggplot(aes(x = Title, y = Age, colour = factor(Survived))) +
   geom_point() +
   geom_smooth(method = "loess", formula = "y ~ x") +
   facet_grid(Title ~ .)
 
 titanic %>%
-  select(Age, Pclass, Title) %>%
-  drop_na(Age) %>%
-  ggplot(aes(x = Title, y = Pclass, colour = factor(Title))) +
+  select(Pclass, Title, Survived) %>%
+  ggplot(aes(x = Title, y = Pclass, colour = factor(Survived))) +
   geom_point() +
   geom_smooth(method = "loess", formula = "y ~ x") +
   facet_grid(Title ~ .)
@@ -459,9 +458,34 @@ titanic %>%
 ## (8 puntos) Completar los missing values del atributo **Age** con la mediana del resto de datos de esa variable pero agrupado de acuerdo a las variables **Pclass** y **Title**.
 
 
+```{r 2.pregunta_8, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
+titanic %>%
+  group_by(Pclass, Title) %>%
+  mutate(
+    Age = ifelse(
+      is.na(Age),
+      mean(Age, na.rm = TRUE),
+      Age
+    )
+  ) -> titanic
+
+
+kable(titanic) %>%
+  kable_styling() %>%
+  scroll_box(width = "100%", height = "300px")
+```
+  
 
 
 ## (2 puntos) Después de realizar las operaciones anteriores, eliminar ahora cualquier fila que tenga al menos un NA.
+
+
+
+```{r 2.pregunta_9, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
+
+```
+
+
 
 ## (2 puntos) Calcular la probabilidad de supervivencia en base al género (Sex). ¿Qué conclusión(es) obtienes del resultado?
 
