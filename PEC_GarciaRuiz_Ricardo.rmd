@@ -506,8 +506,8 @@ kable(titanic) %>%
 ```{r 2.pregunta_10, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
 titanic %>%
   group_by(Survived, Sex) %>%
-  summarise(n = n()) %>%
-  mutate(freq = n / sum(n)) %>%
+  summarise (n = n()) %>%
+  mutate(freq = 100 * (n / sum(n))) %>%
   kable() %>%
   kable_styling() %>%
   scroll_box(width = "50%", height = "225px")
@@ -518,9 +518,44 @@ titanic %>%
 
 ## (2 puntos) Calcular la probabilidad de supervivencia en base a la edad (**Age**). ¿Te parecen fácilmente interpretables estos resultados?
 
+```{r 2.pregunta_11, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
+titanic %>%
+  group_by(Survived, Age) %>%
+  filter(Survived == 1) %>%
+  summarise (n = n()) %>%
+  mutate(freq = 100 * (n / sum(n))) %>%
+  kable() %>%
+  kable_styling() %>%
+  scroll_box(width = "50%", height = "350px")
+
+```
+
 ## (4 puntos) Crea una nueva variable **Decade** en el dataframe que contenga la década de la edad de los pasajeros y repite el análisis del apartado anterior sobre esta nueva variable. ¿Qué conclusión(es) obtienes del resultado? Pista: función cut.
 
+
+```{r 2.pregunta_12, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
+titanic %>%
+  mutate(Decade = cut(
+    Age,
+    breaks = seq(0, 90, by = 10),
+    right = TRUE
+  )) -> titanic
+
+kable(titanic) %>%
+  kable_styling() %>%
+  scroll_box(width = "100%", height = "350px")
+
+```
+
 ## (4 puntos) Convertir la variable **Survived** a un factor con los niveles Yes si ha sobrevivido y No en caso contrario.
+
+
+```{r 2.pregunta_13, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
+
+
+```
+
+
 
 ## (4 puntos) Ver la relación entre la supervivencia y la nueva variable Title con un gráfico de barras. En el caso del valor **Otros** de la variable **Title**, ¿nos proporciona este alguna información sobre la supervivencia?. ¿A qué se debe?
 

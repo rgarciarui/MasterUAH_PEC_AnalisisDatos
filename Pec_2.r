@@ -97,19 +97,38 @@ titanic %>%
 titanic %>%
   group_by(Survived, Sex) %>%
   summarise (n = n()) %>%
-  mutate(freq = n / sum(n)) %>%
+  mutate(freq = 100 * (n / sum(n))) %>%
   kable() %>%
   kable_styling() %>%
   scroll_box(width = "50%", height = "225px")
 
 
 
+titanic %>%
+  group_by(Survived, Age) %>%
+  filter(Survived == 1) %>%
+  summarise (n = n()) %>%
+  mutate(freq = 100 * (n / sum(n))) %>%
+  kable() %>%
+  kable_styling() %>%
+  scroll_box(width = "50%", height = "350px")
 
 
+titanic %>%
+  mutate(Decade = cut(
+    Age,
+    breaks = seq(0, 90, by = 10),
+    right = TRUE
+  )) -> titanic
 
 
-
-
+titanic %>%
+  mutate(Survived = cut(
+    Survived,
+    breaks = c(0, 1),
+    labels = c("No", "Yes"),
+    right = TRUE
+  )) -> titanic
 
 
 
