@@ -533,7 +533,7 @@ titanic %>%
 ## (4 puntos) Crea una nueva variable **Decade** en el dataframe que contenga la década de la edad de los pasajeros y repite el análisis del apartado anterior sobre esta nueva variable. ¿Qué conclusión(es) obtienes del resultado? Pista: función cut.
 
 
-```{r 2.pregunta_12, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
+```{r 2.pregunta_12.1, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
 titanic %>%
   mutate(Decade = cut(
     Age,
@@ -546,6 +546,27 @@ kable(titanic) %>%
   scroll_box(width = "100%", height = "350px")
 
 ```
+  
+
+```{r 2.pregunta_12.2, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
+library(ggpubr)
+theme_set(theme_pubr())
+titanic %>%
+  group_by(Survived, Decade) %>%
+  filter(Survived == 1) %>%
+  summarise(n = n()) %>%
+  mutate(freq = 100 * (n / sum(n))) %>%
+  ggplot(
+    aes(x = Decade, y = n, fill=factor(Decade))
+  ) +
+  geom_bar(stat = "identity") +
+  guides(fill = FALSE) + 
+  geom_text(aes(label = n), vjust = -0.3) + 
+  theme_pubclean() 
+
+```
+
+
 
 ## (4 puntos) Convertir la variable **Survived** a un factor con los niveles Yes si ha sobrevivido y No en caso contrario.
 

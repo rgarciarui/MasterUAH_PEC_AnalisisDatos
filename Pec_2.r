@@ -130,5 +130,27 @@ titanic %>%
     right = TRUE
   )) -> titanic
 
+titanic %>%
+  group_by(Survived, Decade) %>%
+  filter(Survived == 1) %>%
+  summarise (n = n()) %>%
+  mutate(freq = 100 * (n / sum(n))) %>%
+  kable() %>%
+  kable_styling() %>%
+  scroll_box(width = "50%", height = "350px")
 
-
+library(ggpubr)
+theme_set(theme_pubr())
+titanic %>%
+  group_by(Survived, Decade) %>%
+  filter(Survived == 1) %>%
+  summarise(n = n()) %>%
+  mutate(freq = 100 * (n / sum(n))) %>%
+  ggplot(
+    aes(x = Decade, y = n, fill=factor(Decade))
+  ) +
+  geom_bar(stat = "identity") +
+  guides(fill = FALSE) + 
+  geom_text(aes(label = n), vjust = -0.3) + 
+  theme_pubclean() 
+  
