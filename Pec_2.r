@@ -154,3 +154,21 @@ titanic %>%
   geom_text(aes(label = n), vjust = -0.3) + 
   theme_pubclean() 
   
+
+
+titanic %>%
+  mutate(
+    Survived =
+      forcats::as_factor(
+        as.character(Survived)
+      )
+  ) -> t
+
+cols <- c('Survived')
+
+library(purrrlyr)
+t[,cols] <- 
+  titanic %>% 
+  select(one_of(cols)) %>% 
+  dmap(as.factor)
+
