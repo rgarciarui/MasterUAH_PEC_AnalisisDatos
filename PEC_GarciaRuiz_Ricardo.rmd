@@ -407,6 +407,7 @@ Características generales a analizar:
 * **Bigotes**: Los bigotes se extienden de cualquier lado de la caja. Los bigotes representan los rangos del 25 % de valores de datos de la parte inferior y el 25 % de la parte inferior, excluyendo los valores atípicos.
 
 Otras consideraciones de interés son:
+  
 * **Tamaño de la muestra (n)**: El tamaño de la muestra puede afectar la apariencia de la gráfica. Una gráfica de caja funciona mejor cuando el tamaño de la muestra es al menos de 20. Si el tamaño de la muestra es demasiado pequeño, los cuartiles y los valores atípicos que la gráfica de caja muestra pueden no ser significativos.
 * **Datos asimétricos**: Cuando los datos son asimétricos, la mayoría de los datos se ubican en la parte superior o inferior de la gráfica. La asimetría indica que los datos pueden no estar distribuidos normalmente.
 * **Valores atípicos**: Los valores atípicos, que son valores de datos que están muy alejados de otros valores de datos, pueden afectar fuertemente sus resultados. Frecuentemente, es más fácil identificar los valores atípicos en una gráfica de caja.
@@ -551,6 +552,7 @@ kable(titanic) %>%
 ```{r 2.pregunta_12.2, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
 library(ggpubr)
 theme_set(theme_pubr())
+
 titanic %>%
   group_by(Survived, Decade) %>%
   filter(Survived == 1) %>%
@@ -573,12 +575,89 @@ titanic %>%
 
 ```{r 2.pregunta_13, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
 
+titanic %>% 
+  mutate(Survived = recode(Survived, 
+                    "0" = "No", 
+                    "1" = "Yes")) -> titanic
+titanic$Survived %<>% factor
+
+str(titanic$Survived)
+
+titanic %>%
+  ggplot(aes(x = Survived, fill = Survived)) +
+  geom_bar() +
+  guides(fill = FALSE) +
+  theme_pubclean()
 
 ```
 
 
 
 ## (4 puntos) Ver la relación entre la supervivencia y la nueva variable Title con un gráfico de barras. En el caso del valor **Otros** de la variable **Title**, ¿nos proporciona este alguna información sobre la supervivencia?. ¿A qué se debe?
+  
+
+* **Master**: hombre soltero
+* **Miss**: mujer soltera
+* **Mr.**: hombre casado
+* **Mrs.**: mujer casada
+* **Otro**
+
+
+```{r 2.pregunta_14.1, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
+
+titanic %>%
+  group_by(Survived, Title) %>%
+  filter(Survived == "Yes") %>%
+  summarise (n = n()) %>%
+  mutate(freq = 100 * (n / sum(n))) %>%
+  kable() %>%
+  kable_styling() %>%
+  scroll_box(width = "50%", height = "350px")
+
+titanic %>%
+  group_by(Survived, Title) %>%
+  filter(Survived == "Yes") %>%
+  summarise(n = n()) %>%
+  mutate(freq = 100 * (n / sum(n))) %>%
+  ggplot(
+    aes(x = Title, y = n, fill=factor(Title))
+  ) +
+  geom_bar(stat = "identity") +
+  guides(fill = FALSE) + 
+  geom_text(aes(label = n), vjust = -0.3) + 
+  theme_pubclean()
+
+```
+
+
+```{r 2.pregunta_14.2, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
+
+titanic %>%
+  group_by(Survived, Title) %>%
+  filter(Survived == "No") %>%
+  summarise (n = n()) %>%
+  mutate(freq = 100 * (n / sum(n))) %>%
+  kable() %>%
+  kable_styling() %>%
+  scroll_box(width = "50%", height = "350px")
+
+titanic %>%
+  group_by(Survived, Title) %>%
+  filter(Survived == "No") %>%
+  summarise(n = n()) %>%
+  mutate(freq = 100 * (n / sum(n))) %>%
+  ggplot(
+    aes(x = Title, y = n, fill=factor(Title))
+  ) +
+  geom_bar(stat = "identity") +
+  guides(fill = FALSE) + 
+  geom_text(aes(label = n), vjust = -0.3) + 
+  theme_pubclean()
+
+```
+
+
+
 
 ## (4 puntos) Crea dos nuevas variables en el dataframe con la siguiente información:
 

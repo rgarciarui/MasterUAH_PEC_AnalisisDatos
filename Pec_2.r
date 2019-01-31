@@ -2,6 +2,11 @@
 library(tidyverse)
 library(knitr)
 library("kableExtra")
+library(forcats)
+
+library(purrr)
+library(dplyr)
+library(magrittr)
 
 titanic <- read_csv("titanic.csv")
 
@@ -156,19 +161,63 @@ titanic %>%
   
 
 
+titanic %>% 
+  mutate(Survived = recode(Survived, 
+                    "0" = "No", 
+                    "1" = "Yes")) -> titanic
+titanic$Survived %<>% factor
+
 titanic %>%
-  mutate(
-    Survived =
-      forcats::as_factor(
-        as.character(Survived)
-      )
-  ) -> t
+  ggplot(aes(x = Survived, fill = Survived)) +
+  geom_bar() +
+  guides(fill = FALSE) +
+  theme_pubclean()
 
-cols <- c('Survived')
 
-library(purrrlyr)
-t[,cols] <- 
-  titanic %>% 
-  select(one_of(cols)) %>% 
-  dmap(as.factor)
+titanic %>%
+  group_by(Survived, Title) %>%
+  filter(Survived == "Yes") %>%
+  summarise (n = n()) %>%
+  mutate(freq = 100 * (n / sum(n))) %>%
+  kable() %>%
+  kable_styling() %>%
+  scroll_box(width = "50%", height = "350px")
 
+titanic %>%
+  group_by(Survived, Title) %>%
+  filter(Survived == "Yes") %>%
+  summarise(n = n()) %>%
+  mutate(freq = 100 * (n / sum(n))) %>%
+  ggplot(
+    aes(x = Title, y = n, fill=factor(Title))
+  ) +
+  geom_bar(stat = "identity") +
+  guides(fill = FALSE) + 
+  geom_text(aes(label = n), vjust = -0.3) + 
+  theme_pubclean()
+
+
+titanic %>%
+  group_by(Title, Survived) %>%
+  #filter(Survived == "Yes") %>%
+  summarise (n = n()) %>%
+  mutate(freq = 100 * (n / sum(n))) %>%
+  kable() %>%
+  kable_styling() %>%
+  scroll_box(width = "50%", height = "350px")
+
+titanic %>%
+  group_by(Survived, Title) %>%
+  #filter(Survived == "Yes") %>%
+  summarise (n = n()) %>%
+  mutate(freq = 100 * (n / sum(n))) %>%
+  kable() %>%
+  kable_styling() %>%
+  scroll_box(width = "50%", height = "350px")
+
+titanic %>%
+  select(Survived, Title) %>%
+  ggplot(aes(x = Title, y = Survived, colour = factor(Survived))) +
+  geom_point() +
+  geom_smooth(method = "loess", formula = "y ~ x") +
+  facet_grid(Title ~ .)
