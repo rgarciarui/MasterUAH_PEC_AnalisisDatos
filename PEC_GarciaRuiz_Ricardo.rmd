@@ -663,6 +663,9 @@ titanic %>%
 
 * **Familysize:** número total de parientes incluyendo al propio pasajero. 
 * **Sigleton:** valor lógico indicando con valor TRUE si el pasajero viaja solo y FALSE en caso contrario.
+  
+
+
 
 
 ## (4 puntos) Realizar un gráfico de puntos de la variable **Age** sobre **Fare**, coloreado por los valores de la variable **Survived**.

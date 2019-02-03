@@ -221,3 +221,15 @@ titanic %>%
   geom_point() +
   geom_smooth(method = "loess", formula = "y ~ x") +
   facet_grid(Title ~ .)
+
+
+titanic %>%
+  group_by(as.numeric(as.character(PassengerId))) %>%
+  gather('Key', 'value', starts_with('x')) %>%
+  summarise( Key.Sum = sum(value) ) %>%
+  left_join( titanic, . )
+
+titanic %>% 
+  group_by(as.numeric(as.character(PassengerId))) %>%
+  summarise_all(sum) %>% 
+  mutate(tt1 = (as.numeric(as.character(SibSp)) + as.numeric(as.character(Parch))))
