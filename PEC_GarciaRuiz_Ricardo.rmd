@@ -666,9 +666,51 @@ titanic %>%
   
 
 
+```{r 2.pregunta_15.1, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
+
+titanic %>%
+  mutate(
+    Familysize = (
+      as.numeric(as.character(SibSp)) +
+        as.numeric(as.character(Parch)) + 1
+    )
+  ) -> titanic
+
+```
+
+  
+
+```{r 2.pregunta_15.2, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
+
+titanic %>%
+  mutate(
+    Sigleton = (
+      ifelse(Familysize > 1, FALSE, TRUE)
+    )
+  ) -> titanic
+
+```
+  
 
 
 ## (4 puntos) Realizar un gráfico de puntos de la variable **Age** sobre **Fare**, coloreado por los valores de la variable **Survived**.
+  
+  
+```{r 2.pregunta_16, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
+
+titanic %>%
+  mutate(
+    Familysize = (
+      as.numeric(as.character(SibSp)) +
+        as.numeric(as.character(Parch)) + 1
+    )
+  ) -> titanic
+
+```
+
+
+
+
 
 ## (2 puntos) Realizar un histograma para ver la distribución de las edades.
 

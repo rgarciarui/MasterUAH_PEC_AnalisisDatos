@@ -7,6 +7,7 @@ library(forcats)
 library(purrr)
 library(dplyr)
 library(magrittr)
+library(ggpubr)
 
 titanic <- read_csv("titanic.csv")
 
@@ -233,3 +234,20 @@ titanic %>%
   group_by(as.numeric(as.character(PassengerId))) %>%
   summarise_all(sum) %>% 
   mutate(tt1 = (as.numeric(as.character(SibSp)) + as.numeric(as.character(Parch))))
+
+
+
+titanic %>%
+  mutate(
+    Familysize = (
+      as.numeric(as.character(SibSp)) +
+        as.numeric(as.character(Parch)) + 1
+    )
+  ) -> titanic
+
+titanic %>%
+  mutate(
+    Sigleton = (
+      ifelse(Familysize > 1, FALSE, TRUE)
+    )
+  ) -> titanic
