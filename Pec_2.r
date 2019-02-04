@@ -251,3 +251,41 @@ titanic %>%
       ifelse(Familysize > 1, FALSE, TRUE)
     )
   ) -> titanic
+
+
+titanic %>%
+  ggplot() +
+  geom_point(aes(x = Age, y = Fare, color = Survived)) +
+  ggtitle("Gráfica: Diagrama de Dispersión Age / Fare") +
+  theme_pubclean()
+
+titanic %>%
+  ggplot(aes(Age)) +
+  geom_histogram(
+    breaks = seq(20, 50, by = 2),
+    col = "red",
+    alpha = .5,
+    aes(fill = ..count..)
+  ) +
+  labs(
+    title = "Histograma de la variable Age",
+    x = "Age",
+    y = "Count"
+  ) +
+  scale_fill_gradient(
+    "Count",
+    low = "green",
+    high = "red"
+  ) +
+  theme_pubclean() +
+  theme(
+    legend.title = element_blank(),
+    plot.title = element_text(hjust = 0.5)
+  )
+
+
+
+
+
+
+

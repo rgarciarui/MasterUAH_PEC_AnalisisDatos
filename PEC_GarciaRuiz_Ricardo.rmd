@@ -699,12 +699,10 @@ titanic %>%
 ```{r 2.pregunta_16, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
 
 titanic %>%
-  mutate(
-    Familysize = (
-      as.numeric(as.character(SibSp)) +
-        as.numeric(as.character(Parch)) + 1
-    )
-  ) -> titanic
+  ggplot() +
+  geom_point(aes(x = Age, y = Fare, color = Survived)) +
+  ggtitle("Gráfica: Diagrama de Dispersión Age / Fare") +
+  theme_pubclean()
 
 ```
 
@@ -713,6 +711,41 @@ titanic %>%
 
 
 ## (2 puntos) Realizar un histograma para ver la distribución de las edades.
+
+  
+  
+```{r 2.pregunta_17, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
+
+titanic %>%
+  ggplot(aes(Age)) +
+  geom_histogram(
+    breaks = seq(20, 50, by = 2),
+    col = "red",
+    alpha = .5,
+    aes(fill = ..count..)
+  ) +
+  labs(
+    title = "Histograma de la variable Age",
+    x = "Age",
+    y = "Count"
+  ) +
+  scale_fill_gradient(
+    "Count",
+    low = "green",
+    high = "red"
+  ) +
+  theme_pubclean() +
+  theme(
+    legend.title = element_blank(),
+    plot.title = element_text(hjust = 0.5)
+  )
+
+```
+
+
+
+
+
 
 ## (4 puntos) Representar en un gráfico de barras el número de pasajeros que han sobrevivido para cada uno de los valores de las variables **Sex** y **Pclass**.
 
