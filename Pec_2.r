@@ -283,7 +283,12 @@ titanic %>%
     plot.title = element_text(hjust = 0.5)
   )
 
-
+titanic %>%
+  select(Survived, Title) %>%
+  ggplot(aes(x = Title, y = Survived, colour = factor(Survived))) +
+  geom_point() +
+  geom_smooth(method = "loess", formula = "y ~ x") +
+  facet_grid(Title ~ .)
 
 
 

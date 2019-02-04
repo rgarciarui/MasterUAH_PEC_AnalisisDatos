@@ -749,6 +749,19 @@ titanic %>%
 
 ## (4 puntos) Representar en un gráfico de barras el número de pasajeros que han sobrevivido para cada uno de los valores de las variables **Sex** y **Pclass**.
 
+  
+  
+```{r 2.pregunta_18, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
+
+
+
+```
+
+
+
+
+
+
 ## (4 puntos) Cuenta el número de pasajeros por tamaño de familia y clase. Por ejemplo, cuántos pasajeros de primera clase pertenecen a una familia de tamaño 4. El resultado debe ser un dataframe con la información para todas las posibles combinaciones de clase del billete y tamaño de familia.
 
 ## (4 puntos) Representar, en un mismo gráfico, dos histogramas de la variable **Age**, uno para los pasajeros con sexo masculino y otro para los pasajeros con sexo femenino. En caso de que se solapen los histogramas, usar colores con transparencias.
