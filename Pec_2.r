@@ -292,5 +292,20 @@ titanic %>%
 
 
 
-
-
+titanic %>%
+  group_by(Survived, Pclass, Sex) %>%
+  filter(Survived == "Yes") %>%
+  summarise(n = n()) %>%
+  ggplot(
+    aes(x = Sex, y = n, fill = factor(Pclass))
+  ) +
+  geom_bar(stat = "identity") +
+  scale_fill_manual(values = c("red3", "lightskyblue3", "lightgreen")) + 
+  geom_text(aes(label = n), 
+            position = position_stack(), vjust = 1.1) + # Para los valores en la columna
+  labs (title = "Pasajeros sobrevivientes, segun Sexo y Clase", y = NULL) +   # Etiquetas del gráfico
+  theme_minimal() + 
+  theme(legend.position = "top")
+  
+  
+ 
