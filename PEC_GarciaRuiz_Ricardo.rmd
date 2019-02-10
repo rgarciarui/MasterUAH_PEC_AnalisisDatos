@@ -116,7 +116,7 @@ bikes %>%
   set_colnames(c("Porcentaje")) %>%
   kable() %>%
   kable_styling() %>%
-  scroll_box(width = "100%", height = "500px")
+  scroll_box(width = "50%", height = "500px")
 ```
 
 
@@ -195,8 +195,8 @@ kable(bikes) %>%
 
 ## (20 puntos) Realizar un gráfico de barras del número de ciclistas para cada día de la semana en cada uno de los seis districtos con más ciclistas (usando facetas)
 
-En primer lugar vamos a ver cuales son los 5 primeros distritos por número de ciclistas:
-
+En primer lugar vamos a ver cuales son los 5 primeros distritos por número de ciclistas:  
+  
 ```{r 1.pregunta_8.1, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
 
 bikes %>%
@@ -207,9 +207,10 @@ bikes %>%
   kable()
 
 ```
-
-Una vez que sabemos este dato, procedemos a crear un filtro para poder utilizarlo en la selección de datos:
-
+  
+  
+Una vez que sabemos este dato, procedemos a crear un filtro para poder utilizarlo en la selección de datos:  
+  
 ```{r 1.pregunta_8.2, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
 
 filtro1 <- bikes %>%
@@ -222,9 +223,10 @@ filtro1 <- bikes %>%
 kable(filtro1)
 
 ```
-
-Ahora podemos proceder a seleccionar los datos del dataframe que cumplen con el filtro:
-
+  
+  
+Ahora podemos proceder a seleccionar los datos del dataframe que cumplen con el filtro:  
+  
 
 ```{r 1.pregunta_8.3, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
 
@@ -236,15 +238,17 @@ bikes %>%
   scroll_box(width = "50%", height = "300px")
 
 ```
-
-Y en este punto procedemos a la visualización de los datos:
-
+  
+  
+Y en este punto procedemos a la visualización de los datos mediante dos formatos distintos de visualización con facetas:  
+  
+  
 ```{r 1.pregunta_8.4, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
 bikes %>%
   semi_join(filtro1, by = c("District")) %>%
   arrange(District) %>%
   ggplot(aes(x = Day, y = N)) +
-  geom_point() + 
+  geom_point() +
   geom_smooth(method = "loess", formula = "y ~ x") +
   facet_grid(District ~ .)
 
@@ -270,24 +274,26 @@ bikes %>%
   filter(str_detect(Month, "01")) %>%
   kable() %>%
   kable_styling() %>%
-  scroll_box(width = "50%", height = "300px")
+  scroll_box(width = "50%", height = "500px")
 ```
-
-Ahora procederemos a realizar la gráfica conjunta de cada variable:
-
-
+  
+Ahora procederemos a realizar la gráfica conjunta de cada variable:  
+  
+  
 ```{r 1.pregunta_9.2, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
 bikes %>%
   filter(District %in% c("Berri1", "University", "Boyer", "Parc")) %>%
   filter(str_detect(Month, "01")) %>%
   ggplot(aes(x = Day, y = N, group = District)) +
   geom_line(aes(color = District)) +
-  geom_smooth(method = "loess", 
-              formula = "y ~ x", 
-              colour="black", 
-              size=0.5, 
-              fullrange = FALSE,
-              span = 1 ) +
+  geom_smooth(
+    method = "loess",
+    formula = "y ~ x",
+    colour = "black",
+    size = 0.5,
+    fullrange = FALSE,
+    span = 1
+  ) +
   geom_point(aes(color = District)) +
   labs(
     title = " Evolucion diaria del numero de ciclistas",
