@@ -525,13 +525,15 @@ titanic %>%
 
 kable(titanic) %>%
   kable_styling() %>%
-  scroll_box(width = "100%", height = "300px")
+  scroll_box(width = "100%", height = "500px")
 ```
   
 
 
 ## (2 puntos) Después de realizar las operaciones anteriores, eliminar ahora cualquier fila que tenga al menos un NA.
 
+
+En primer lugar mostramos las filas que son susceptibles de eliminación por contener NA (valores ausentes) en alguna de las columnas.
 
 
 ```{r 2.pregunta_9.1, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
@@ -543,6 +545,9 @@ titanic %>%
 
 ```
 
+A continuación procedemos a eliminar las filas indicadas anteriormente y mostramos nuevamente el conjunto de datos pero sin las filas que contenian valores ausentes:
+
+
 ```{r 2.pregunta_9.2, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
 titanic %>%
   drop_na() -> titanic
@@ -553,7 +558,12 @@ kable(titanic) %>%
 
 ```
 
+
+
 ## (2 puntos) Calcular la probabilidad de supervivencia en base al género (Sex). ¿Qué conclusión(es) obtienes del resultado?
+
+
+En primer lugar procedemos a realizar unos sencillos calculos y a mostrarlos tabulados en la tabla siguiente:
 
 
 ```{r 2.pregunta_10, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
@@ -568,8 +578,15 @@ titanic %>%
 ```
 
 
+Como podemos ver, el porcentaje de supervivencia de las **mujeres** está en torno del 68% en tanto que el de los **hombres** desciende hasta tan solo un 32%.  
+Claramente la supervivencia de las mujeres era más favorable en esta situacion.
+
 
 ## (2 puntos) Calcular la probabilidad de supervivencia en base a la edad (**Age**). ¿Te parecen fácilmente interpretables estos resultados?
+
+
+Procedemos a calcular y presentar en la siguiente tabla el conjunto de datos:  
+
 
 ```{r 2.pregunta_11, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
 titanic %>%
@@ -579,11 +596,19 @@ titanic %>%
   mutate(freq = 100 * (n / sum(n))) %>%
   kable() %>%
   kable_styling() %>%
-  scroll_box(width = "50%", height = "350px")
+  scroll_box(width = "50%", height = "500px")
 
 ```
 
+
+Como se puede ver, las segregación de contenido en función de la edad, muy dispersa, hace que se atomicen los resultados sobre frecuencias/porcentajes, de forma que sacar conclusiones se vuelve bastante complicado.
+
+
 ## (4 puntos) Crea una nueva variable **Decade** en el dataframe que contenga la década de la edad de los pasajeros y repite el análisis del apartado anterior sobre esta nueva variable. ¿Qué conclusión(es) obtienes del resultado? Pista: función cut.
+
+
+En primer lugar procedemos a calcular la nueva variable **Decade** mediante la agrupación en intervalos de los valores de edad.
+Esto lo mostramos en la tabla siguiente:
 
 
 ```{r 2.pregunta_12.1, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
@@ -596,9 +621,12 @@ titanic %>%
 
 kable(titanic) %>%
   kable_styling() %>%
-  scroll_box(width = "100%", height = "350px")
+  scroll_box(width = "100%", height = "500px")
 
 ```
+  
+  
+  Adicionalmente, mostramos de forma grafica la agrupación de valores obtenida.
   
 
 ```{r 2.pregunta_12.2, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
@@ -621,8 +649,14 @@ titanic %>%
 ```
 
 
+El resultado, tanto observando las magnitudes en la tabla como a través del grafico, es que se deduce que la agrupación en intervalos de edad facilita la lectura y la comprensión de los datos.
+Se evidencia que las personas entre 20-30 años fueron las mas afortunadas en supervivencia. Luego seguidas de las de rango entre 30-40 años y finalmente las terceras las de 10-20.
+
 
 ## (4 puntos) Convertir la variable **Survived** a un factor con los niveles Yes si ha sobrevivido y No en caso contrario.
+
+
+Se procede a realizar la transformación de la variable **Survived** y a continuación se muestra un grafico con el numero de distribución de filas por superviviente.
 
 
 ```{r 2.pregunta_13, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
@@ -632,8 +666,6 @@ titanic %>%
                     "0" = "No", 
                     "1" = "Yes")) -> titanic
 titanic$Survived %<>% factor
-
-str(titanic$Survived)
 
 titanic %>%
   ggplot(aes(x = Survived, fill = Survived)) +
@@ -654,6 +686,8 @@ titanic %>%
 * **Mrs.**: mujer casada
 * **Otro**
 
+Primero de todo, procedemos a calcular y presentar en una tabla la relación de supervivencia mediante la utilización de la variable **Title**.
+
 
 ```{r 2.pregunta_14.1, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
 
@@ -664,7 +698,7 @@ titanic %>%
   mutate(freq = 100 * (n / sum(n))) %>%
   kable() %>%
   kable_styling() %>%
-  scroll_box(width = "50%", height = "350px")
+  scroll_box(width = "50%", height = "300px")
 
 titanic %>%
   group_by(Survived, Title) %>%
@@ -680,6 +714,11 @@ titanic %>%
   theme_pubclean()
 
 ```
+
+
+En el grafico anterior vemos que la mayor parte de supervivientes se concentra en los titulos 'Miss' y 'Mrs', todos femeninos.
+
+Por otro lado, a modo de verificación, presentadmos siguiendo el mismo esquema, los datos de No supervivencia:
 
 
 ```{r 2.pregunta_14.2, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
@@ -709,6 +748,7 @@ titanic %>%
 ```
 
 
+La cantidad es abrumadora en cuanto a no supervivencia de los hombres, es decir, con titulo 'Mr'.
 
 
 ## (4 puntos) Crea dos nuevas variables en el dataframe con la siguiente información:
