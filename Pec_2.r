@@ -397,6 +397,11 @@ titanic2 %>%
   filter(n()>1)
 
 
+titanic <- left_join(
+  x = titanic,
+  y = titanic2,
+  by = c("Name" = "name", "Ticket" = "ticket")
+)
 
 
 

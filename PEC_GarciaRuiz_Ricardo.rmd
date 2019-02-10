@@ -938,6 +938,23 @@ titanic2 %>%
 
 
 ## (6 puntos) Combina ambos dataframes utilizando la combinación del nombre y el número de billete, manteniendo las mismas filas que el dataframe original.
+  
+
+```{r 2.pregunta_23.1, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
+
+titanic <- left_join(
+  x = titanic,
+  y = titanic2,
+  by = c("Name" = "name", "Ticket" = "ticket")
+)
+
+titanic %>%
+  kable() %>%
+  kable_styling() %>%
+  scroll_box(width = "100%", height = "350px")
+
+```
+
 
 ## (4 puntos) ¿Qué porcentaje de los pasajeros que sobrevivió tiene asociado un identificador del bote salvavidas?
 
