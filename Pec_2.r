@@ -327,5 +327,59 @@ t %>%
   theme(legend.position = "top")
 
 
+titanic %>%
+  group_by(Pclass, Title, Sex) %>%
+  ungroup() %>%
+  select(Sex) %>%
+  ggplot(aes(x = Sex, y = ..count.., fill = Sex)) + 
+  geom_bar(stat = "count")
+  geom_histogram() 
+  
+
+titanic %>%
+  group_by(Pclass, Title, Sex, Age) %>%
+  ungroup() %>%
+  select(Sex, Age) %>%
+  ggplot(., aes(Age, fill = Sex)) + 
+  geom_histogram(alpha = 0.5, 
+                 aes(y = ..count..), 
+                 position = 'identity',
+                 binwidth = 5
+                 ) +
+  labs(
+    title = "Histograma de valores de Edad por sexo",
+    y = NULL
+  ) +
+  theme(legend.position = "top")
+    
+titanic %>%
+  group_by(Pclass, Title, Sex, Age) %>%
+  ungroup() %>%
+  select(Sex, Age) %>%
+  ggplot(., aes(Age, fill = Sex)) + 
+  geom_histogram(alpha = 0.5, 
+                 aes(y = ..density..), 
+                 position = 'identity',
+                 binwidth = 5
+  ) +
+  labs(
+    title = "Histograma de densidad de Edad por sexo",
+    y = NULL
+  ) +
+  theme(legend.position = "top")
+  
+  
+  
+  
+
+
+
+
+
+
+
+
+
+
 
  

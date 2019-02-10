@@ -775,11 +775,14 @@ titanic %>%
     aes(x = Sex, y = n, fill = factor(Pclass))
   ) +
   geom_bar(stat = "identity") +
-  scale_fill_manual(values = c("red3", "lightskyblue3", "lightgreen")) + 
-  geom_text(aes(label = n), 
-            position = position_stack(), vjust = 1.1) + # Para los valores en la columna
-  labs (title = "Pasajeros sobrevivientes, segun Sexo y Clase", y = NULL) +   # Etiquetas del gráfico
-  theme_minimal() + 
+  scale_fill_manual(values = c("red3", "lightskyblue3", "lightgreen")) +
+  geom_text(
+    aes(label = n),
+    position = position_stack(),
+    vjust = 1.1
+  ) + # Para los valores en la columna
+  labs(title = "Pasajeros sobrevivientes, segun Sexo y Clase", y = NULL) + # Etiquetas del gráfico
+  theme_minimal() +
   theme(legend.position = "top")
 
 ```
@@ -824,6 +827,49 @@ passengerSummarize %>%
 
 
 ## (4 puntos) Representar, en un mismo gráfico, dos histogramas de la variable **Age**, uno para los pasajeros con sexo masculino y otro para los pasajeros con sexo femenino. En caso de que se solapen los histogramas, usar colores con transparencias.
+
+  
+  
+```{r 2.pregunta_20.1, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
+
+titanic %>%
+  group_by(Pclass, Title, Sex, Age) %>%
+  ungroup() %>%
+  select(Sex, Age) %>%
+  ggplot(., aes(Age, fill = Sex)) +
+  geom_histogram(
+    alpha = 0.5,
+    aes(y = ..count..),
+    position = "identity",
+    binwidth = 5
+  ) +
+  labs(
+    title = "Histograma de valores de Edad por sexo",
+    y = NULL
+  ) +
+  theme(legend.position = "top")
+
+titanic %>%
+  group_by(Pclass, Title, Sex, Age) %>%
+  ungroup() %>%
+  select(Sex, Age) %>%
+  ggplot(., aes(Age, fill = Sex)) +
+  geom_histogram(
+    alpha = 0.5,
+    aes(y = ..density..),
+    position = "identity",
+    binwidth = 5
+  ) +
+  labs(
+    title = "Histograma de densidad de Edad por sexo",
+    y = NULL
+  ) +
+  theme(legend.position = "top")
+
+```
+
+
+
 
 ## (4 puntos) Leer el fichero **titanic2.csv**, que contiene información adicional sobre los pasajeros del barco:
 * **boat:** identificador del bote salvavidas
