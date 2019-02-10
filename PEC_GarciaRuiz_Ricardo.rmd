@@ -983,8 +983,48 @@ titanic %>%
 
 
 
+  
+
+```{r 2.pregunta_25.1, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
+
+titanic %>%
+  ungroup() %>%
+  sample_n(
+    round(nrow(.) * 0.3),
+    replace = FALSE
+  ) -> titanic30
+
+titanic70 <- anti_join(
+  titanic,
+  titanic30,
+  by = "PassengerId"
+)
+
+```
 
 
+
+
+```{r 2.pregunta_25.2, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
+
+titanic70 %>%
+  kable(caption = "Conjunto de datos Titanic con 70% filas") %>%
+  kable_styling() %>%
+  scroll_box(width = "100%", height = "300px")
+
+```
+
+
+
+
+```{r 2.pregunta_25.3, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
+
+titanic30 %>%
+  kable(caption = "Conjunto de datos Titanic con 30% filas") %>%
+  kable_styling() %>%
+  scroll_box(width = "100%", height = "300px")
+
+```
 
 
 

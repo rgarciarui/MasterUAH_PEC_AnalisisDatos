@@ -417,18 +417,27 @@ titanic %>%
 
 
 
-df <- data_frame(x=1:20,y=runif(20))
-dfy <- df %>% sample_n(10, replace=FALSE)
-dfx <- anti_join(df, dfy, by="x")
 
 titanic %>%
-  group_by(PassengerId) %>%
-  mutate(N = nrow(.))
   ungroup() %>%
-  summarize(PassengerId)
-  mutate( total = count(PassengerId))
-  sample_n( round(n*0.3), replace=FALSE)
+  sample_n(
+    round(nrow(.) * 0.3),
+    replace = FALSE
+  ) -> titanic30
+
+titanic70 <- anti_join(
+  titanic,
+  titanic30,
+  by = "PassengerId"
+)
 
 
 
- 
+datatable(
+  titanic70,
+  filter = "top",
+  options = list(
+    pageLength = 5,
+    autoWidth = TRUE
+  )
+)
