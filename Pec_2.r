@@ -261,7 +261,7 @@ titanic %>%
 titanic %>%
   ggplot(aes(Age)) +
   geom_histogram(
-    breaks = seq(20, 50, by = 2),
+    breaks = seq(0, 90, by = 2),
     col = "red",
     alpha = .5,
     aes(fill = ..count..)

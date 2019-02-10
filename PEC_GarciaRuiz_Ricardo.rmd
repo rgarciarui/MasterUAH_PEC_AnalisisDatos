@@ -730,7 +730,7 @@ titanic %>%
   mutate(freq = 100 * (n / sum(n))) %>%
   kable() %>%
   kable_styling() %>%
-  scroll_box(width = "50%", height = "350px")
+  scroll_box(width = "50%", height = "300px")
 
 titanic %>%
   group_by(Survived, Title) %>%
@@ -757,6 +757,8 @@ La cantidad es abrumadora en cuanto a no supervivencia de los hombres, es decir,
 * **Sigleton:** valor lógico indicando con valor TRUE si el pasajero viaja solo y FALSE en caso contrario.
   
 
+Procedemos a crear las 2 variables solicitadas, incorporandolas en el dataframe **titanic**. Las mostramos en una tabla con el conjunto de datos completo.
+
 
 ```{r 2.pregunta_15.1, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
 
@@ -767,6 +769,7 @@ titanic %>%
         as.numeric(as.character(Parch)) + 1
     )
   ) -> titanic
+
 
 ```
 
@@ -781,11 +784,19 @@ titanic %>%
     )
   ) -> titanic
 
+kable(titanic) %>%
+  kable_styling() %>%
+  scroll_box(width = "100%", height = "500px")
+
 ```
   
 
 
 ## (4 puntos) Realizar un gráfico de puntos de la variable **Age** sobre **Fare**, coloreado por los valores de la variable **Survived**.
+  
+  
+Mostramos a continuación el gráfico calculado de puntos entre las variables **Age** y **Fare**, utilizando como discriminador por supervivientes.
+Aunque no se ve con precisión, se observa que el incremento en el coste del billete tiene un impacto en la tasa de supervivencia.
   
   
 ```{r 2.pregunta_16, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
@@ -800,10 +811,10 @@ titanic %>%
 
 
 
-
-
 ## (2 puntos) Realizar un histograma para ver la distribución de las edades.
 
+En primer termino se procede a la generación del grafico con la distribucion de las edades desde 0-90 años.
+Coo se puede ver rápidamente, la mayor acumulación de pasajeros por edad esta en el rango de 28-30 años. El histogrma muestra una leve asimetria a la derecha.
   
   
 ```{r 2.pregunta_17, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
@@ -811,7 +822,7 @@ titanic %>%
 titanic %>%
   ggplot(aes(Age)) +
   geom_histogram(
-    breaks = seq(20, 50, by = 2),
+    breaks = seq(0, 90, by = 2),
     col = "red",
     alpha = .5,
     aes(fill = ..count..)
@@ -836,11 +847,12 @@ titanic %>%
 
 
 
-
-
-
 ## (4 puntos) Representar en un gráfico de barras el número de pasajeros que han sobrevivido para cada uno de los valores de las variables **Sex** y **Pclass**.
 
+
+En el grafico siguiente se muestra una distribucion de supervivientes utilizando la relación entre las variables **Sex** y *Pclass**. 
+Se presenta mediante diagrama de barras apiladas en la que la distribucion horizontal es el sexo y la vertical es la clase. 
+Se ayuda a la visualización mostrando para cada apilamiento de clase el numero de supervivientes.
   
   
 ```{r 2.pregunta_18.1, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
@@ -869,6 +881,8 @@ titanic %>%
 
 ## (4 puntos) Cuenta el número de pasajeros por tamaño de familia y clase. Por ejemplo, cuántos pasajeros de primera clase pertenecen a una familia de tamaño 4. El resultado debe ser un dataframe con la información para todas las posibles combinaciones de clase del billete y tamaño de familia.
 
+
+Siguiendo las instrucciones, se procede a realizar una agrupación que muestre mediante una tabla el número de pasajeros por familia y clase.
   
   
 ```{r 2.pregunta_19.1, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
@@ -902,6 +916,8 @@ passengerSummarize %>%
 
 ```
 
+
+Tambien se muestra un gráfico en el que se plasma, en forma de barras apiladas dicha relación.
 
 
 ## (4 puntos) Representar, en un mismo gráfico, dos histogramas de la variable **Age**, uno para los pasajeros con sexo masculino y otro para los pasajeros con sexo femenino. En caso de que se solapen los histogramas, usar colores con transparencias.
