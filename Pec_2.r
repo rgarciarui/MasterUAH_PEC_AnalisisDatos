@@ -32,13 +32,17 @@ titanic <- dplyr::select(titanic, -Cabin)
 str(titanic)
 
 titanic %>%
-  separate(Name, c("apellido", "Nombre"), sep = ",") %>%
+  mutate(Name2 = Name) %>% 
+  separate(Name2, c("apellido", "Nombre"), sep = ",") %>%
   separate(Nombre, c("none", "Title"), sep = " ") %>% 
   select(-none, -apellido) %>%
   mutate(Title = ifelse(Title == 'Mlle.', 'Miss.', Title)) %>%
   mutate(Title = ifelse(Title == 'Ms.|Mme.', 'Mrs.', Title)) %>%
   mutate(Title = ifelse(!Title %in% c('Mr.', 'Mrs.', 'Master.', 'Miss.'), 'Otro', Title)) -> titanic
-  
+
+titanic %>%
+  select(PassengerId, Survived, Pclass, Title, everything()) -> titanic
+
 kable(titanic) %>%
   kable_styling() %>%
   scroll_box(width = "100%", height = "200px")
@@ -368,8 +372,20 @@ titanic %>%
   ) +
   theme(legend.position = "top")
   
-  
-  
+library(DT)  
+titanic2 <- read_delim("titanic2.csv", ";", 
+                       escape_double = FALSE, locale = locale(), 
+                       trim_ws = TRUE)
+
+datatable(
+  summary(titanic2),
+  filter = "top",
+  options = list(
+    pageLength = 5,
+    autoWidth = TRUE
+  ),
+  colnames = c('Variable', 'Type')
+)
   
 
 

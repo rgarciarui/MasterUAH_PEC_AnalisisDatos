@@ -388,12 +388,16 @@ Para realizar esta tarea procedemos de la forma siguiente:
 
 ```{r 2.pregunta_5, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
 titanic %>%
-  separate(Name, c("apellido", "Nombre"), sep = ",") %>%
+  mutate(Name2 = Name) %>%
+  separate(Name2, c("apellido", "Nombre"), sep = ",") %>%
   separate(Nombre, c("none", "Title"), sep = " ") %>%
   select(-none, -apellido) %>%
   mutate(Title = ifelse(Title == "Mlle.", "Miss.", Title)) %>%
   mutate(Title = ifelse(Title == "Ms.|Mme.", "Mrs.", Title)) %>%
   mutate(Title = ifelse(!Title %in% c("Mr.", "Mrs.", "Master.", "Miss."), "Otro", Title)) -> titanic
+
+titanic %>%
+  select(PassengerId, Survived, Pclass, Title, everything()) -> titanic
 
 kable(titanic) %>%
   kable_styling() %>%
@@ -875,6 +879,38 @@ titanic %>%
 * **boat:** identificador del bote salvavidas
 * **body:** identificador del cuerpo
 * **home.dest:** Origen/destino
+
+
+```{r 2.pregunta_21.1, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
+titanic2 <- read_delim("titanic2.csv", ";", 
+                       escape_double = FALSE, locale = locale(), 
+                       trim_ws = TRUE)
+
+
+library(DT)
+datatable(
+  summary(titanic2),
+  filter = "top",
+  options = list(
+    pageLength = 5,
+    autoWidth = TRUE
+  ),
+  colnames = c('Variable', 'Type')
+)
+
+```
+  
+y podemos ver la estructura de datos que tiene nuestro dataframe cuando se carga mediante un tibble de tydiverse.
+
+Los datos se pueden verificar en la siguiente tabla:
+
+```{r 2.pregunta_21.2, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
+kable(cbind(titanic2), caption = "Datos titanic2.csv") %>%
+  kable_styling() %>%
+  scroll_box(width = "100%", height = "300px")
+```
+
+
 
 ## (4 puntos) Para unificar estos dos dataframes, parecería buena opción utilizar la variable name como clave. Determina si esta variable es única por pasajero, mostrando el número de nombres diferentes repetidos. En caso de existir varios pasajeros con el mismo nombre, listar aquellas filas del dataframe inicial en las que el nombre del pasajero esté repetido
 
