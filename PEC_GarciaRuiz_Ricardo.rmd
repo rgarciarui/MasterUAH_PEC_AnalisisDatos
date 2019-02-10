@@ -330,7 +330,7 @@ Con el fichero de datos anterior:
 
 ## (4 puntos) Leer el fichero **titanic.csv** como un dataframe.
 
-Cargamos el conjunto de datos desde el fichero 'titanic.csv' y lo mostramos: 
+Cargamos el conjunto de datos desde el fichero **'titanic.csv'** y lo mostramos: 
 
 ```{r 2.pregunta_1, echo=FALSE}
 titanic <- read_csv("titanic.csv")
@@ -344,16 +344,19 @@ y podemos ver la estructura de datos que tiene nuestro dataframe cuando se carga
 
 Los datos se pueden verificar en la siguiente tabla:
 
+
 ```{r 2.pregunta_1.1, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
 kable(cbind(titanic, titanic), caption = "Datos titanic.csv") %>%
   kable_styling() %>%
-  scroll_box(width = "100%", height = "300px")
+  scroll_box(width = "100%", height = "500px")
 ```
 
 
 ## (2 puntos) Calcular el porcentaje de pasajeros que sobrevivió.
 
-A continuación, seleccionamos únicamente la variable **Survived** y realizamos un sencillo cálculo:
+
+A continuación, seleccionamos únicamente la variable **Survived** y realizamos un sencillo cálculo del porcentaje de supervivientes:
+
 
 
 ```{r 2.pregunta_2, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
@@ -366,18 +369,24 @@ titanic %>%
 
 ## (4 puntos) Calcular el porcentaje de missing values en cada uno de los atributos.
 
-Realizamos el cálculo del porcentaje de valores 'NA' en cada una de las variables, aunque solo ser´ñia necesario en 3 que son las únicas que tienen valores ausentes:
+Realizamos el cálculo del porcentaje de valores 'NA' en cada una de las variables, aunque solo sería necesario en 3 que son las únicas que tienen valores ausentes:
+
 
 ```{r 2.pregunta_3, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
+require(magrittr)
+
 titanic %>%
   summarise_all(funs(100 * mean(is.na(.)))) %>%
+  t() %>%
+  set_colnames(c("Porcentaje")) %>%
   kable() %>%
   kable_styling() %>%
-  scroll_box(width = "100%", height = "100px")
+  scroll_box(width = "50%", height = "400px")
 ```
 
 
 ## (2 puntos) Eliminar la variable **Cabin** del dataframe.
+
 
 Eliminamos del tibble la variable **Cabin** y mostramos la estructura resultante:
 
@@ -392,12 +401,14 @@ str(titanic)
 
 ## (8 puntos) Crear una nueva variable **Title** a partir de **Name** con los valores **Master** (hombre soltero), **Miss** (mujer soltera), **Mr.** (hombre casado), **Mrs.** (mujer casada) y Otro a partir de la variable **nombre**. Es importante tener en cuenta que el título **Miss** está en ocasiones codificado con su abreviatura en frances **Mlle** (mademoiselle) y lo mismo ocurre con **Mrs.**, que en ocasiones aparece como **Ms.** ó **Mme** (madame).
 
+
 Para realizar esta tarea procedemos de la forma siguiente:
 
-1. Separamos la variable original **Name** en dos nuevas variables usando de token separador la ',' que separa nombre de apellidos.
-2. Separamos nuevamente ahora esta variable 'intermedia' denominada **Nombre** en 2 nuevas variables, la segunda de las cuales ya contiene el conjunto de datos de titulo.
-3. Descartamos las variables intermedias que han resultado del proceso de separación y que no aportan nada al resultado.
-4. Realizamos la limpieza de la nueva variable **Title** ajustando los titulos que no son correctos con los aceptados y, finalmente, el resto de datos no ajustables se sustituyen por la palabra 'Otros'.
+1. Creamos una copia de la variable **Name**, denominada **Name2**, para poder trabajar con ella y de esta forma dejar intacta la variable original para futuros usos.
+2. Separamos la variable clonada **Name2** en dos nuevas variables usando de token separador la ',' que separa 'nombre' de 'apellidos'.
+3. Separamos nuevamente ahora esta variable 'intermedia' denominada **Nombre** en 2 nuevas variables, la segunda de las cuales ya contiene el conjunto de datos de titulo.
+4. Descartamos las variables intermedias que han resultado del proceso de separación y que no aportan nada al resultado.
+5. Realizamos la limpieza de la nueva variable **Title** ajustando los titulos que no son correctos con los aceptados y, finalmente, el resto de datos no ajustables se sustituyen por la palabra 'Otros'.
 
 
 ```{r 2.pregunta_5, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
@@ -415,13 +426,14 @@ titanic %>%
 
 kable(titanic) %>%
   kable_styling() %>%
-  scroll_box(width = "100%", height = "200px")
+  scroll_box(width = "100%", height = "500px")
 ```
 
 
 ## (4 puntos) Explorar la relación entre las variables **Age** y la nueva variable **Title** mediante un boxplot para cada uno de los valores de la misma. ¿Tienen alguna relación?.
   
 En primer lugar esablecemos una canal seleccionando las dos variables de comparación, **Age** y **Title**, eliminamos los datos de **Age** con 'NA' y luego mostramos el gráfico: 
+
 
 ```{r 2.pregunta_6, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
 titanic %>%
@@ -448,17 +460,22 @@ Otras consideraciones de interés son:
 
 Aplicación al conjunto de datos 'titanic':
 
-* **Mediana**: En las variables 'Master', 'Miss', 'Mr.' y 'Mrs' la linea de caja esta un poco por debajo de la zona central de caja. En la variable 'Otro' dicha linea de caja esta muy desplazada a la parte superior. En este aspecto, las 4 primeras variables muestran una homogeneidad en el resultado.
-* **Caja de rango intercuartil**: 
-* **Bigotes**: 
+* **Mediana**: En las variables 'Master', 'Miss', 'Mr.' y 'Mrs' la linea de caja esta un poco por debajo de la zona central de caja. En la variable 'Otro' dicha linea de caja está muy desplazada a la parte superior. En este aspecto, las 4 primeras variables muestran una homogeneidad en el resultado.
 * **Tamaño de la muestra (n)**: En todos los casos, el tamaño de la muestra es muy superior a 20 y por tanto entendemos que la representación de estos datos mediante box plot da una imagen real de su estructura.
-* **Datos asimétricos**: 
-* **Valores atípicos**: 
-* **Centros**: 
-* **Dispersiones**: 
+* **Valores atípicos**: Las variables 'Miss' y 'Mr' evidencian outliers
+
+El rango intercuartil parece el mismo en todas las variables excepto en 'Master' que es mas corto.
 
 
 ## (4 puntos) Explorar la relación entre **Age**, **Pclass** y **Title** en varios gráficos de dispersión con colores, donde el color representa la supervivencia (Pista: usar facetas).
+
+
+En los 3 graficos siguientes se plantea la visualización de la relación entre las 3 variables. Se utiliza la variable de supervivencia para marcar el color en todos los graficos presentados.
+
+
+1. En el primer grafico se presenta la relación de supervivencia mediante la relación de Edad y Clase. Se evidencia uyna mayor supervivencia en la clase 1 y hasta los 60 años.
+2. En el segundo grafico se presenta la relación de supervivencia mediante la relación de Title y Edad. Se evidencia una mayor tasa de supervivencia entre 'Miss' y 'Mrs', sin discriminaci´ñon de edad.
+3. En el tercer grafico se presenta la relación de supervivencia mediante la relación de title y Clase. Los datos no son concluyentes.
 
 
 ```{r 2.pregunta_7, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
@@ -489,6 +506,9 @@ titanic %>%
 
 
 ## (8 puntos) Completar los missing values del atributo **Age** con la mediana del resto de datos de esa variable pero agrupado de acuerdo a las variables **Pclass** y **Title**.
+
+
+Se procede a la agrupación de los datos mediante 'clase' y 'title'. Luego se calculan los valores de la media y se aplican a los valores ausentes de la edad.
 
 
 ```{r 2.pregunta_8, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
