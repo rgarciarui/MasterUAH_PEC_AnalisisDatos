@@ -388,9 +388,13 @@ datatable(
 )
   
 
+titanic %>% 
+  group_by(Name) %>% 
+  filter(n()>1)
 
-
-
+titanic2 %>% 
+  group_by(name) %>% 
+  filter(n()>1)
 
 
 

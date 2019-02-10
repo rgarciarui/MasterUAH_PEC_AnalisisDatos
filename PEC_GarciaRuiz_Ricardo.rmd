@@ -913,6 +913,29 @@ kable(cbind(titanic2), caption = "Datos titanic2.csv") %>%
 
 
 ## (4 puntos) Para unificar estos dos dataframes, parecería buena opción utilizar la variable name como clave. Determina si esta variable es única por pasajero, mostrando el número de nombres diferentes repetidos. En caso de existir varios pasajeros con el mismo nombre, listar aquellas filas del dataframe inicial en las que el nombre del pasajero esté repetido
+  
+En primer lugar verificamos si tanto en el dataframe **titanic** como en el dataframe **titanic2** hay filas repetidas para la variable 'Name' y 'name' respectivamente:  
+
+
+```{r 2.pregunta_22.1, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
+titanic %>%
+  group_by(Name) %>%
+  filter(n() > 1) %>%
+  kable() %>%
+  kable_styling() %>%
+  scroll_box(width = "100%", height = "350px")
+
+titanic2 %>%
+  group_by(name) %>%
+  filter(n() > 1) %>%
+  kable() %>%
+  kable_styling() %>%
+  scroll_box(width = "100%", height = "350px")
+
+```
+
+
+
 
 ## (6 puntos) Combina ambos dataframes utilizando la combinación del nombre y el número de billete, manteniendo las mismas filas que el dataframe original.
 
