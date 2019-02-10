@@ -77,21 +77,21 @@ str(bikes)
 
 ```
 
-y podemos ver la estructura de datos que tiene nuestro dataframe cuando se carga mediante y tibble de tydiverse.
+y podemos ver la estructura de datos que tiene nuestro dataframe cuando se carga mediante un tibble de tydiverse.
 
 Los datos se pueden verificar en la siguiente tabla:
-
+  
 ```{r 1.pregunta_1.1, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
 kable(cbind(bikes, bikes), caption = "Datos bikes2016.csv") %>%
   kable_styling() %>%
-  scroll_box(width = "100%", height = "300px")
+  scroll_box(width = "100%", height = "400px")
 ```
 
 
 ## (5 puntos) Eliminar la columna **Timestamp** del dataframe.
-
-La variables 'timestamp' se encuentra localizada en la segunda columna por lo que lo más sencillo es eliminar esa columna del conjunto de datos.
-
+  
+La variable **'timestamp'** se encuentra localizada en la segunda columna, por lo que lo más sencillo es eliminar esa columna del conjunto de datos.
+  
 ```{r 1.pregunta_2, echo=FALSE}
 bikes <- dplyr::select(bikes, -Timestamp)
 
@@ -102,31 +102,37 @@ str(bikes)
 
 ## (10 puntos) Calcular el porcentaje de missing values en cada una de las columnas.
 
-Esta accion se puede abordar de diferente maneras, incluyendo el uso de la librería **dplyr**. Por ejemplo con '**bikes %>% map(~ mean(is.na(.)))**'. No obstante, vamos a usar una variante que nos permite su representación en forma de tabla:
+Esta accion se puede abordar de diferentes maneras, incluyendo el uso de la librería **dplyr**. Por ejemplo con '**bikes %>% map(~ mean(is.na(.)))**'.  
+  
+No obstante, vamos a usar una variante que nos permite su representación para cada distrito de Montreal en forma de tabla siguiente:
 
 
 ```{r 1.pregunta_3, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
+library(magrittr)
+
 bikes %>%
   summarise_all(funs(100 * mean(is.na(.)))) %>%
+  t() %>%
+  set_colnames(c("Porcentaje")) %>%
   kable() %>%
   kable_styling() %>%
-  scroll_box(width = "100%", height = "200px")
+  scroll_box(width = "100%", height = "500px")
 ```
 
 
 ## (10 puntos) Identificar cuales son las variables que están contenidas en el data.frame. A continuación, transformar ese data.frame para que cada columna represente cada una de las variables. Usar los nombres Date, District y N.
 
-En el tibble tenemos 2 tipos de variables:
-
+En el tibble (dataframe) tenemos 2 tipos de variables:  
+  
 * **Date**: que se corresponde con la fecha de la toma de cada dato.
 * **Distritos**: Que se corresponde con todas y cada una de las demás columnas del dataframe.
-
+  
 Ahora procedemos a realizar una reunión de los datos en 3 variables:
 
-* **Date**: que contine el cmismo conjunto de datos de tiempo originales
+* **Date**: que contine el mismo conjunto de datos de tiempo originales
 * **District**: que contendrá los nombres de los distritos donde se han tomado las medidas
 * **N**: que contendrá el conjunto de los datos de los distritos segun su asignación en el dataframe original.
-
+  
 ```{r 1.pregunta_4, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
 bikes <- bikes %>%
   gather(key = District, value = N, -Date)
@@ -134,14 +140,14 @@ bikes <- bikes %>%
 bikes %>%
   kable() %>%
   kable_styling() %>%
-  scroll_box(width = "50%", height = "300px")
+  scroll_box(width = "50%", height = "500px")
 
 ```
 
 ## (10 puntos) Calcular el total de personas que pasa por cada uno de los distritos a lo largo de todo el año.
 
 A continuación se agrupan los distritos y se calcula la suma total de personas que pasó por cada distrito en 2016:
-
+  
 ```{r 1.pregunta_5, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
 bikes %>%
   na.omit() %>%
@@ -151,13 +157,15 @@ bikes %>%
   kable_styling() %>%
   scroll_box(width = "50%", height = "300px")
 ```
-
+  
 
 ## (10 puntos) Completar los missing values del atributo N con la media del resto de datos de esa variable pero agrupado de acuerdo a la variable **District**.
 
-En este paso volvemos a proceder a la agrupación por distrito y posteriormente se aplica la función **mutate()** para aplicar la media a calculada para cada distrito y volcarla solo a los valores NA.
-Finalmente se guardan los ajustes en el dataframe.
+En este paso volvemos a proceder a la agrupación por distrito y posteriormente se aplica la función **mutate()** para aplicar la media calculada para cada distrito y aplicarla solo a los valores NA.  
 
+Finalmente se guardan los ajustes en el dataframe.
+  
+  
 ```{r 1.pregunta_6, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
 bikes %>%
   group_by(District) %>%
@@ -173,8 +181,8 @@ kable(bikes) %>%
 
 ## (10 puntos) Crear tres nuevas variables en el data.frame **(Day, Month, Year )** que contengan la información del día, mes y año respectivamente.
 
-Se utiliza la función **separate** para crear las 3 nuevas variables. Se elimina la variable original 'Date'.
-
+Se utiliza la función **separate()** para crear las 3 nuevas variables. Se elimina la variable original 'Date' que ya no cumple ninguna función.  
+  
 ```{r 1.pregunta_7, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
 bikes %>%
   separate(Date, c("Day", "Month", "Year"), sep = "/") -> bikes
@@ -992,7 +1000,8 @@ titanic %>%
   sample_n(
     round(nrow(.) * 0.3),
     replace = FALSE
-  ) -> titanic30
+  ) %>%
+  arrange(PassengerId) -> titanic30
 
 titanic70 <- anti_join(
   titanic,

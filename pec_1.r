@@ -8,10 +8,14 @@ bikes <- dplyr::select(bikes, -Timestamp)
 
 str(bikes)
 
+library(magrittr)
 bikes %>% 
-  summarise_all(funs(100*mean(is.na(.))))
+  summarise_all(funs(100*mean(is.na(.)))) %>%
+  t() %>%
+  set_colnames(c("Porcentaje"))
 
 bikes <- bikes %>%
+  ungroup() %>%
   gather(key = District, value = N, -Date) 
 
 bikes %>%
