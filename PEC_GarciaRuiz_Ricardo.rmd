@@ -922,6 +922,9 @@ Tambien se muestra un gráfico en el que se plasma, en forma de barras apiladas 
 
 ## (4 puntos) Representar, en un mismo gráfico, dos histogramas de la variable **Age**, uno para los pasajeros con sexo masculino y otro para los pasajeros con sexo femenino. En caso de que se solapen los histogramas, usar colores con transparencias.
 
+
+A continuación se siguen las instrucciones de mostrar 2 histogramas de edad x sexo, siendo los dos histogramas solapables por discriminación de sexo.
+En los 2 graficos siguientes se muestra dicha relacion tanto para el numero como para la densidad.
   
   
 ```{r 2.pregunta_20.1, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
@@ -964,11 +967,12 @@ titanic %>%
 
 
 
-
 ## (4 puntos) Leer el fichero **titanic2.csv**, que contiene información adicional sobre los pasajeros del barco:
 * **boat:** identificador del bote salvavidas
 * **body:** identificador del cuerpo
 * **home.dest:** Origen/destino
+
+En primer lugar se procxede a leer el fichero de datos **titanic2.csv** y a cargarlo en el dataframe **titanic2**.
 
 
 ```{r 2.pregunta_21.1, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
@@ -990,9 +994,11 @@ datatable(
 
 ```
   
+  
 y podemos ver la estructura de datos que tiene nuestro dataframe cuando se carga mediante un tibble de tydiverse.
 
 Los datos se pueden verificar en la siguiente tabla:
+
 
 ```{r 2.pregunta_21.2, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
 kable(cbind(titanic2), caption = "Datos titanic2.csv") %>%
@@ -1003,6 +1009,7 @@ kable(cbind(titanic2), caption = "Datos titanic2.csv") %>%
 
 
 ## (4 puntos) Para unificar estos dos dataframes, parecería buena opción utilizar la variable name como clave. Determina si esta variable es única por pasajero, mostrando el número de nombres diferentes repetidos. En caso de existir varios pasajeros con el mismo nombre, listar aquellas filas del dataframe inicial en las que el nombre del pasajero esté repetido
+ 
   
 En primer lugar verificamos si tanto en el dataframe **titanic** como en el dataframe **titanic2** hay filas repetidas para la variable 'Name' y 'name' respectivamente:  
 
@@ -1013,22 +1020,27 @@ titanic %>%
   filter(n() > 1) %>%
   kable() %>%
   kable_styling() %>%
-  scroll_box(width = "100%", height = "350px")
+  scroll_box(width = "100%", height = "150px")
 
 titanic2 %>%
   group_by(name) %>%
   filter(n() > 1) %>%
   kable() %>%
   kable_styling() %>%
-  scroll_box(width = "100%", height = "350px")
+  scroll_box(width = "100%", height = "250px")
 
 ```
 
 
+Comprobamos que solo el nuevo dataframe tiene filas repetidas. 
 
 
 ## (6 puntos) Combina ambos dataframes utilizando la combinación del nombre y el número de billete, manteniendo las mismas filas que el dataframe original.
-  
+
+
+Para este tratamiento de datos realizamos una **left_join()** con los 2 valores de combinación (nombre y el número de billete).
+Mostramos el resultado en una tabla a continuación:
+
 
 ```{r 2.pregunta_23.1, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
 
@@ -1048,6 +1060,9 @@ titanic %>%
 
 ## (4 puntos) ¿Qué porcentaje de los pasajeros que sobrevivió tiene asociado un identificador del bote salvavidas?
 
+
+Para este proceso necesitamso crear una variables auxiliar **Boat**, dicotómica, que nos indicará si hay valores ausentes (valor = 0) o no (valor = 1). Cuando no hay valores ausentes es que tenia asignado un bote salvavidas.
+Con esta variables auxiliar realizamos un filtrado y selección y lo mostramos a continuación:
   
 
 ```{r 2.pregunta_24.1, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
@@ -1067,12 +1082,17 @@ titanic %>%
 ```
 
 
+Como vemos una 84% de los supervivientes tenía un bote asignado.
 
 
 ## (6 puntos) Separar el conjunto anterior de datos en dos subconjuntos disjuntos de forma aleatoria, el primero conteniendo un 70% de los datos y el segundo un 30%. Los resultados tienen que estar contenidos en dos dataframes
 
 
+Para separar el conjunto de datos en 2 disjuntos realizamos las siguientes operaciones:
 
+1. Utilizando la función **sample_n()** calculamos un 30% de valores aleatorios del dataframe original. El nuevo conjunto de datos le denominamos **titanic30**.
+2. A continuación realizamos una operación **anti_join()** entre el dataframe **titanic** y el calculado del 30% **titanic30**. Esto permite obtener el 70% restante y mantener la operación de separación de los conjuntos de datos disjunta, como se pedía. Este segundo conjunto se denomina **titanic70**
+  
   
 
 ```{r 2.pregunta_25.1, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
@@ -1094,6 +1114,8 @@ titanic70 <- anti_join(
 ```
 
 
+Se muestra a continuación el conjunto de datos **titanic70** en la siguiente tabla:
+
 
 
 ```{r 2.pregunta_25.2, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
@@ -1106,6 +1128,7 @@ titanic70 %>%
 ```
 
 
+Se muestra a continuación el conjunto de datos **titanic30** en la siguiente tabla:
 
 
 ```{r 2.pregunta_25.3, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
