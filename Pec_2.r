@@ -230,11 +230,6 @@ titanic %>%
   summarise( Key.Sum = sum(value) ) %>%
   left_join( titanic, . )
 
-titanic %>% 
-  group_by(as.numeric(as.character(PassengerId))) %>%
-  summarise_all(sum) %>% 
-  mutate(tt1 = (as.numeric(as.character(SibSp)) + as.numeric(as.character(Parch))))
-
 
 
 titanic %>%
@@ -300,12 +295,37 @@ titanic %>%
     aes(x = Sex, y = n, fill = factor(Pclass))
   ) +
   geom_bar(stat = "identity") +
-  scale_fill_manual(values = c("red3", "lightskyblue3", "lightgreen")) + 
-  geom_text(aes(label = n), 
-            position = position_stack(), vjust = 1.1) + # Para los valores en la columna
-  labs (title = "Pasajeros sobrevivientes, segun Sexo y Clase", y = NULL) +   # Etiquetas del gráfico
-  theme_minimal() + 
+  scale_fill_manual(values = c("red3", "lightskyblue3", "lightgreen")) +
+  geom_text(aes(label = n),
+    position = position_stack(), vjust = 1.1
+  ) + # Para los valores en la columna
+  labs(title = "Pasajeros sobrevivientes, segun Sexo y Clase", y = NULL) + # Etiquetas del gráfico
+  theme_minimal() +
   theme(legend.position = "top")
   
-  
+
+
+titanic %>%
+  select(Pclass, Familysize) %>%
+  group_by(Pclass, Familysize) %>%
+  summarize() -> t
+
+t %>%
+  ggplot(
+    aes(x = Pclass, y = Familysize, fill = Familysize)
+  ) +
+  geom_bar(stat = "identity") +
+  geom_text(aes(label = Familysize),
+    position = position_stack(),
+    vjust = 1.1,
+    color = "white"
+  ) +
+  labs(
+    title = "Pasajeros por tamaño de familia y clase",
+    y = NULL
+  ) +
+  theme(legend.position = "top")
+
+
+
  
