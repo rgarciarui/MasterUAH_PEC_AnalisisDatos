@@ -958,6 +958,27 @@ titanic %>%
 
 ## (4 puntos) ¿Qué porcentaje de los pasajeros que sobrevivió tiene asociado un identificador del bote salvavidas?
 
+  
+
+```{r 2.pregunta_24.1, echo=FALSE, cache=FALSE, results = 'asis', warning=FALSE, comment=FALSE}
+
+titanic %>%
+  group_by(Pclass, Title, Survived, boat) %>%
+  ungroup() %>%
+  select(Survived, boat) %>%
+  filter(Survived == "Yes") %>%
+  mutate(Boat = ifelse(is.na(boat), 0, 1)) %>%
+  select(-boat) %>%
+  summarise(Freq = 100 * (sum(Boat) / n())) %>%
+  kable() %>%
+  kable_styling() %>%
+  scroll_box(width = "25%", height = "100px")
+
+```
+
+
+
+
 ## (6 puntos) Separar el conjunto anterior de datos en dos subconjuntos disjuntos de forma aleatoria, el primero conteniendo un 70% de los datos y el segundo un 30%. Los resultados tienen que estar contenidos en dos dataframes
 
 

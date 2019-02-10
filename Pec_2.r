@@ -403,7 +403,31 @@ titanic <- left_join(
   by = c("Name" = "name", "Ticket" = "ticket")
 )
 
+titanic %>%
+  group_by(Pclass, Title, Survived, boat) %>%
+  ungroup() %>%
+  select(Survived, boat) %>%
+  filter(Survived == "Yes") %>%
+  mutate(Boat = ifelse(is.na(boat), 0, 1)) %>%
+  select(-boat) %>%
+  summarise(Freq = 100 * (sum(Boat) / n())) %>%
+  kable() %>%
+  kable_styling() %>%
+  scroll_box(width = "25%", height = "100px")
 
+
+
+df <- data_frame(x=1:20,y=runif(20))
+dfy <- df %>% sample_n(10, replace=FALSE)
+dfx <- anti_join(df, dfy, by="x")
+
+titanic %>%
+  group_by(PassengerId) %>%
+  mutate(N = nrow(.))
+  ungroup() %>%
+  summarize(PassengerId)
+  mutate( total = count(PassengerId))
+  sample_n( round(n*0.3), replace=FALSE)
 
 
 
